@@ -14,7 +14,7 @@ build() {
 	bzip2 -d $startdir/initrd.bz2
 	sudo mount -o loop $startdir/initrd /mnt/
 	sudo rm -r /mnt/pulsarroot/*
-	sudo cd $startdir
+	cd $startdir
 	sudo cp -r $startdir/pulsarroot/* $pkgdir/pulsarcore/
 	sudo cp $startdir/routes.php $pkgdir/pulsarcore/frontend/www/system/application/config/
 	sudo cp $startdir/fstab $pkgdir/pulsarcore/configs/system/fstab
