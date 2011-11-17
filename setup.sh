@@ -88,7 +88,7 @@ make_pulsar ()
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
 	cp -r $BASE/backend/corepackages $WORKDIR/
-	cp $BASE/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
+	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
 	
 	echo "Compile $arch build" 
 	cd $WORKDIR
