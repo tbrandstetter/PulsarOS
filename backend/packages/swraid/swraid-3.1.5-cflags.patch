@@ -1,0 +1,20 @@
+--- a/Makefile	2011-03-23 02:19:09.000000000 +0100
++++ b/Makefile	2011-06-05 21:13:40.000000000 +0200
+@@ -144,7 +144,7 @@
+ # mdadm.tcc doesn't work..
+ 
+ mdadm : $(OBJS)
+-	$(CC) $(LDFLAGS) -o mdadm $(OBJS) $(LDLIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o mdadm $(OBJS) $(LDLIBS)
+ 
+ mdadm.static : $(OBJS) $(STATICOBJS)
+ 	$(CC) $(LDFLAGS) -static -o mdadm.static $(OBJS) $(STATICOBJS)
+@@ -167,7 +167,7 @@
+ 
+ # use '-z now' to guarantee no dynamic linker interactions with the monitor thread
+ mdmon : $(MON_OBJS)
+-	$(CC) $(LDFLAGS) $(MON_LDFLAGS) -Wl,-z,now -o mdmon $(MON_OBJS) $(LDLIBS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $(MON_LDFLAGS) -Wl,-z,now -o mdmon $(MON_OBJS) $(LDLIBS)
+ msg.o: msg.c msg.h
+ 
+ test_stripe : restripe.c mdadm.h

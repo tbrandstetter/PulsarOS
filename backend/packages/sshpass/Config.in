@@ -1,0 +1,5 @@
+config BR2_PACKAGE_SSHPASS
+	bool "sshpass"
+	help
+	  sshpass let you use a password for ssh over commandline for scripts.
+	  http://sshpass.sourceforge.net

@@ -1,0 +1,26 @@
+check process dropbear with pidfile /var/run/dropbear.pid
+   start program  "/etc/init.d/dropbear start"
+   stop program  "/etc/init.d/dropbear stop"
+   if failed port 22 protocol ssh then restart
+   if 5 restarts within 5 cycles then timeout
+
+check file network.pid with path /var/run/network.pid
+   start program  "/etc/init.d/network start"
+   stop program  "/etc/init.d/network stop"
+   if 5 restarts within 5 cycles then timeout
+
+check process frontend with pidfile /var/run/httpd.pid
+   start program  "/etc/init.d/frontend start"
+   stop program  "/etc/init.d/frontend stop"
+   if 5 restarts within 5 cycles then timeout
+
+check process ntpd with pidfile /var/run/ntpd.pid
+   start program  "/etc/init.d/ntp start"
+   stop program  "/etc/init.d/ntp stop"
+   if failed host 127.0.0.1 port 123 type udp then restart
+   if 5 restarts within 5 cycles then timeout
+   
+check process smartd with pidfile /var/run/smartd.pid
+   start program  "/etc/init.d/smartd start"
+   stop program  "/etc/init.d/smartd stop"
+   if 5 restarts within 5 cycles then timeout

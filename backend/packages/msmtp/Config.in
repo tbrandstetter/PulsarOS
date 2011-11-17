@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSMTP
+	bool "msmtp"
+	help
+	  msmtp mini mailer daemon.
+	  http://msmtp.sourceforge.net

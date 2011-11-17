@@ -1,0 +1,6 @@
+check host pulsaros with address 127.0.0.1
+	start program  "/etc/init.d/nfs start"
+	stop program  "/etc/init.d/nfs stop"
+	if failed port 111 type TCP  then restart
+	if failed port 2049 type TCP  then restart
+	if 5 restarts within 5 cycles then timeout

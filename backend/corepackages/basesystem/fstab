@@ -1,0 +1,10 @@
+# /etc/fstab: static file system information.
+#
+# <file system> <mount pt>     <type>	<options>         <dump> <pass>
+proc		/proc	       proc     defaults	  0	 0
+devpts		/dev/pts       devpts   defaults,gid=5,mode=620	  0	 0
+sysfs		/sys	       sysfs    defaults	  0	 0
+tmpfs 		/tmp 		   tmpfs 	defaults,noexec,nosuid 		0 0
+LABEL=BOOT /boot ext2 rw,noauto 0 1
+LABEL=PULSARROOT /pulsarroot ext4 rw 0 1
+LABEL=USR /usr/local ext4 rw 0 1

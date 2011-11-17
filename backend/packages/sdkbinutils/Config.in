@@ -1,0 +1,8 @@
+config BR2_PACKAGE_SDKBINUTILS
+	bool "sdkbinutils"
+	help
+	  The GNU Binutils are a collection of binary tools:
+	  ld - the GNU linker.
+	  as - the GNU assembler.
+	  and others...
+	  http://www.gnu.org/software/binutils/

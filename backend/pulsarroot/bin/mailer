@@ -1,0 +1,8 @@
+#! /bin/bash
+RECIPIENT=`cat /pulsarroot/configs/system/msmtprc |grep 'user ' |awk '{print $2}'`
+echo "From: root@pulsaros.local" > .message
+echo "To: $RECIPIENT" >> .message
+echo 'Subject: Problem detected with disk: ' "$SMARTD_DEVICESTRING" >> .message
+echo "." >> .message
+echo 'Warning message from smartd is: ' "$SMARTD_MESSAGE" >> .message
+i686-linux-msmtp $RECIPIENT < .message

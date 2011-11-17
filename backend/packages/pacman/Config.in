@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PACMAN
+	bool "pacman"
+	help
+	  Pacman is a linux pkg manager
+	  www.archlinux.org/pacman

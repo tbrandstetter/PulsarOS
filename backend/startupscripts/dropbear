@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Starts dropbear sshd.
+#
+CONFIG_HOME=/pulsarroot/configs/dropbear
+
+# Make sure the dropbearkey progam exists
+[ -f /usr/bin/dropbearkey ] || exit 0
+
+start() {
+ 	echo -n "Starting dropbear sshd: "
+	# Make sure dropbear directory exists
+	if [ ! -d $CONFIG_HOME ] ; then
+		mkdir -p $CONFIG_HOME
+	fi
+	# Check for the Dropbear RSA key
+	if [ ! -f $CONFIG_HOME/dropbear_rsa_host_key ] ; then
+		echo -n "generating rsa key... "
+		/usr/bin/dropbearkey -t rsa -f $CONFIG_HOME/dropbear_rsa_host_key > /dev/null 2>&1
+	fi
+
+	# Check for the Dropbear DSS key
+	if [ ! -f $CONFIG_HOME/dropbear_dss_host_key ] ; then
+		echo -n "generating dsa key... "
+		/usr/bin/dropbearkey -t dss -f $CONFIG_HOME/dropbear_dss_host_key > /dev/null 2>&1
+	fi
+	umask 077
+	/usr/sbin/dropbear -I 300 -d $CONFIG_HOME/dropbear_dss_host_key -r $CONFIG_HOME/dropbear_rsa_host_key
+	echo "OK"
+}
+stop() {
+	echo -n "Stopping dropbear sshd: "
+	kill -9 `cat /var/run/dropbear.pid`
+	echo "OK"
+}
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  restart|reload)
+  	restart
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+

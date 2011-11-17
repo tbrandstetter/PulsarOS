@@ -1,0 +1,90 @@
+--- pacman-3.5.3_orig/scripts/makepkg.sh.in	2011-06-07 17:49:28.000000000 +0200
++++ pacman-3.5.3/scripts/makepkg.sh.in	2011-09-27 09:01:54.000000000 +0200
+@@ -563,11 +563,6 @@ generate_checksums() {
+ 	msg "$(gettext "Generating checksums for source files...")"
+ 	plain ""
+ 
+-	if ! type -p openssl >/dev/null; then
+-		error "$(gettext "Cannot find openssl.")"
+-		exit 1 # $E_MISSING_PROGRAM
+-	fi
+-
+ 	local integlist
+ 	if (( $# == 0 )); then
+ 		integlist=$(get_integlist)
+@@ -584,6 +579,11 @@ generate_checksums() {
+ 				exit 1;; # $E_CONFIG_ERROR
+ 		esac
+ 
++		if [ ! $(type -p "${integ}sum") ]; then
++			error "$(gettext "Cannot find the '%s' program.")" "${integ}sum"
++			exit 1 # $E_MISSING_PROGRAM
++		fi
++
+ 		local ct=0
+ 		local numsrc=${#source[@]}
+ 		echo -n "${integ}sums=("
+@@ -597,12 +597,11 @@ generate_checksums() {
+ 		local netfile
+ 		for netfile in "${source[@]}"; do
+ 			local file="$(get_filepath "$netfile")" || missing_source_file "$netfile"
+-			local sum="$(openssl dgst -${integ} "$file")"
+-			sum=${sum##* }
+-			(( ct )) && echo -n "$indent"
+-			echo -n "'$sum'"
+-			ct=$(($ct+1))
+-			(( $ct < $numsrc )) && echo
++			local sum="$(${integ}sum "$file" | cut -d ' ' -f 1)"
++			[ $ct -gt 0 ] && echo -n "$indent"
++ 			echo -n "'$sum'"
++ 			ct=$(($ct+1))
++			[ $ct -lt $numsrc ] && echo
+ 		done
+ 
+ 		echo ")"
+@@ -612,14 +611,13 @@ generate_checksums() {
+ check_checksums() {
+ 	(( ! ${#source[@]} )) && return 0
+ 
+-	if ! type -p openssl >/dev/null; then
+-		error "$(gettext "Cannot find openssl.")"
+-		exit 1 # $E_MISSING_PROGRAM
+-	fi
+-
+ 	local correlation=0
+ 	local integ required
+ 	for integ in md5 sha1 sha256 sha384 sha512; do
++		if [ ! $(type -p "${integ}sum") ]; then
++			error "$(gettext "Cannot find the '%s' program.")" "${integ}sum"
++ 			exit 1 # $E_MISSING_PROGRAM
++ 		fi
+ 		local integrity_sums=($(eval echo "\${${integ}sums[@]}"))
+ 		if (( ${#integrity_sums[@]} == ${#source[@]} )); then
+ 			msg "$(gettext "Validating source files with %s...")" "${integ}sums"
+@@ -639,10 +637,7 @@ check_checksums() {
+ 				fi
+ 
+ 				if (( $found )) ; then
+-					local expectedsum=$(tr '[:upper:]' '[:lower:]' <<< "${integrity_sums[$idx]}")
+-					local realsum="$(openssl dgst -${integ} "$file")"
+-					realsum="${realsum##* }"
+-					if [[ $expectedsum = $realsum ]]; then
++					if echo "${integrity_sums[$idx]}  $file" | ${integ}sum -cs - &>/dev/null; then
+ 						echo "$(gettext "Passed")" >&2
+ 					else
+ 						echo "$(gettext "FAILED")" >&2
+@@ -911,11 +906,11 @@ tidy_install() {
+ 		find . -type f -perm -u+w 2>/dev/null | while read binary ; do
+ 			case "$(file -bi "$binary")" in
+ 				*application/x-sharedlib*)  # Libraries (.so)
+-					/usr/bin/strip $STRIP_SHARED "$binary";;
++					/usr/local/bin/strip $STRIP_SHARED "$binary";;
+ 				*application/x-archive*)    # Libraries (.a)
+-					/usr/bin/strip $STRIP_STATIC "$binary";;
++					/usr/local/bin/strip $STRIP_STATIC "$binary";;
+ 				*application/x-executable*) # Binaries
+-					/usr/bin/strip $STRIP_BINARIES "$binary";;
++					/usr/local/bin/strip $STRIP_BINARIES "$binary";;
+ 			esac
+ 		done
+ 	fi

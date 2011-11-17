@@ -1,0 +1,37 @@
+#!/bin/bash
+SMARTD_ARGS="-c /pulsarroot/configs/system/smartd.conf -p /var/run/smartd.pid"
+
+case "$1" in
+
+start)
+        echo "Starting smartd"
+        /usr/sbin/smartd ${SMARTD_ARGS} &>/dev/null
+        if [ $? -ne 0 ]; then
+        	echo "Smartd startup failure"
+        else
+        	echo "Smartd daemon started"
+        fi
+;;
+
+stop)
+        echo "Stopping smartd"
+        if [ -f /var/run/smartd.pid ]; then
+        	kill -9 `cat /var/run/smartd.pid`
+		else
+			# strangely pidof is not working here
+			# because smartd is spawning more processes
+        	kill -9 `ps|grep smartd|grep -v grep |awk '{print $1}'`
+        fi
+        echo "Smartd daemon stopped"
+;;
+
+restart)
+        echo "Restarting smartd ..."
+        $0 stop
+        $0 start
+        echo "Smartd daemon restarted"
+;;
+
+*)
+        echo "usage: $0 {start|stop|restart}"
+esac

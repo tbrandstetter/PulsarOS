@@ -1,0 +1,10 @@
+usr/bin/syslinux2ansi
+usr/bin/pxelinux-options
+usr/bin/ppmtolss16
+usr/bin/mkdiskimage
+usr/bin/lss16toppm
+usr/bin/keytab-lilo
+usr/bin/isohybrid
+usr/bin/syslinux
+usr/bin/gethostip
+usr/share/syslinux

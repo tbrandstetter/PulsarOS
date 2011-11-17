@@ -1,0 +1,5 @@
+config BR2_PACKAGE_SWRAID
+	bool "swraid"
+	help
+	  Utility for managing RAID hardware.
+	  http://cgi.cse.unsw.edu.au/~neilb/mdadm

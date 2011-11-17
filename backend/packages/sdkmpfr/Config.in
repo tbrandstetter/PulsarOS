@@ -1,0 +1,7 @@
+config BR2_PACKAGE_SDKMPFR
+	bool "sdkmpfr"
+	select BR2_PACKAGE_SDKGMP
+	help
+	  C library for multiple-precision floating-point computations
+	  with exact rounding.
+	  http://www.mpfr.org/

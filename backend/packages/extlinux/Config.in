@@ -1,0 +1,5 @@
+config BR2_PACKAGE_EXTLINUX
+	bool "extlinux"
+	help
+	  SYSLINUX boot loader
+	  http://www.kernel.org/pub/linux/utils/boot/syslinux/

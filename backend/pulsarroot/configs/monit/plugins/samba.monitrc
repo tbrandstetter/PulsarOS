@@ -1,0 +1,5 @@
+check process smbd with pidfile /var/run/smbd.pid
+	start program  "/etc/init.d/samba start"
+	stop program  "/etc/init.d/samba stop"
+	if failed host 127.0.0.1 port 139 type TCP  then restart
+	if 5 restarts within 5 cycles then timeout

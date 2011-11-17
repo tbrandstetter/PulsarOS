@@ -1,0 +1,352 @@
+/**
+ * 
+
+ * 
+ * Description
+ * 
+ * @license		GNU General Public License
+ * @author		Thomas Brandstetter
+ * @link		http://www.pulsaros.com
+ * @email		admin@pulsaros.com
+ * 
+ * @file		style.css
+ * @version		0.7alpha
+ * @date		02/04/2011
+ * 
+ * Copyright (c) 2009-2011
+ */
+ 
+/**
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT
+ * HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR
+ * FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE
+ * OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,
+ * COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL
+ * DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://gnu.org/licenses/>.
+ */
+
+/* Default settings 
+====================================================== */
+body {font-family: "Droid Sans", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.3em;color:#484848; margin: 0; padding: 0; background:#FFFFFF;}
+
+.clear {clear: both;}
+
+/* Fonts and text/link formatting
+====================================================== */
+h1 {
+	-webkit-padding-end: 24px;
+	-webkit-user-select: none;
+	-moz-padding-end: 24px;
+	-moz-user-select: none;
+	color: #444;
+	cursor: pointer;
+	font-size: 200%;
+	font-weight: normal;
+	margin: 0;
+	padding-bottom: 14px;
+	padding-top: 23px;
+	text-align: end;
+	text-shadow: white 0 1px 2px;
+}
+
+#content h1 { text-align:left; }
+
+#pool h1,
+.status h1 { padding-top: 0; }
+#links h1 { padding: 0px 0px 0px 4px; text-shadow:0 -1px 0 #222222; }
+h2 {font-size: 14px; font-weight: bold; margin: 0px; padding:0pt 0pt 10px; text-align:left; }
+.volumes h2 {font-size: 14px; font-weight: bold; margin: 0 0 0 24px; padding: 20px 0 10px; text-align:left; }
+.perm h2 { margin:0 0 0 5px; float: right; }
+h3 { font-size: 14px; font-weight: 600; margin: 0px; padding:0pt 0pt 10px; text-align:left; }
+
+a { outline: none; text-decoration:none; color: #444; }
+#links a { color: #FFFFFF; font-size: 12px; }
+
+#main p { margin-left: 20px; }
+#container div p { margin-left: 8px; }
+.storage p { margin: 0; font-size: 10px; }
+.delete { float: left; margin: 5px 10px 3px 5px; }
+.list p { float: right; margin-top: 0px; }
+p.float { float: left; margin:5px 10px 3px 5px; }
+p.center { text-align: center; }
+
+.response { margin: 0; }
+
+/* List styles
+====================================================== */
+ul {
+	list-style: none;
+}
+
+#menu ul {
+	-webkit-margin-before: 1em; 
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px; 
+	-webkit-padding-start: 40px;
+	-moz-margin-start: 0px;
+	-moz-margin-end: 0px;
+	-moz-padding-start: 40px;
+	margin: 0;
+}
+
+#menu li {
+	border-bottom: 1px solid transparent;
+	border-top: 1px solid transparent;
+	cursor: pointer;
+	font-size: 105%;
+	outline: none;
+	padding: 7px 0;
+	text-align: end;
+	-webkit-padding-end: 24px;
+	-moz-padding-end: 24px;
+}
+
+/* Image styles
+====================================================== */
+img	{ border: 0; }
+img.stat { margin-left: 6px; }
+.storage .img { float: left; }
+img.hdd { height: 48px; }
+#menu img {margin-right: 10px; float:left; }
+h1 img {margin-left: 3px; }
+.stat a img { margin-top: 1px; }
+.perm a img { margin-top: 0px; }
+.pool img {margin-top: 1px; }
+
+/* Menu
+====================================================== */
+#menu {
+	background: #CDFFFF;
+	width: 266px;
+	left: 0;
+	top: 0;
+	position: absolute;
+	bottom: 0;
+	z-index: 2;
+	margin-top: 30px;
+}
+#menu p.bold { margin: 0px; padding: 0px; font-size: 16px; font-weight: bold; }	
+#menu div { margin: 5px 0 0 10px; }
+
+/* Main layout
+====================================================== */
+#wrapper {
+	background: #CDFFFF;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#logo {
+	background-color: #CDFFFF; 
+	width: 960px;
+}
+
+#content {
+	background: #FFF;
+	margin-top: 30px;
+	padding: 0px 24px;
+	max-width: 650px;
+	min-width: 600px;
+	min-height: 620px;
+	position: relative;
+}
+
+#main {
+	-webkit-box-align: stretch;
+	-webkit-padding-start: 267px;
+	-moz-box-align: stretch;
+	-moz-padding-start: 267px;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+}
+
+/* Volumelist
+====================================================== */
+.list { margin-left: 20px; margin-top: 5px; text-align: left; }
+.list .name { float: left;}
+.list .desc { float: right; width: 295px; margin-top: 0; }
+.list .voldesc { float: right; width: 315px; }
+.list .share { float: right; width: 112px; }
+.list .info { float: right; min-width: 82px; }
+.list div.left { float: left;}
+.list div.right { float: right;}
+.list label.text { display: block; float: left; text-align: right; width: 70px; padding: 4px; }
+.list .name a { float: left; }
+.list div.delete { float: right; margin: 0; }
+.list .info a img { margin-top: 0px; float: right; }
+.list div.perm { float: left; min-width: 80px; }
+
+/* Input forms
+======================================================*/
+label.text { display: block; float: left; text-align: right; width: 75px; padding: 4px; }
+#shares label.text { display: block; float: left; text-align: left; width: 70px; padding: 2px 4px 0 0; }
+.perm label.text { display: block; float: left; text-align: right; padding: 4px; }
+#power label.text { display: block; float: left; text-align: right; padding: 4px; width: 155px; }
+#power label.text-small { padding: 4px; }
+#power input.small { width: 35px; }
+
+span { display: block; padding: 4px; vertical-align: middle; }
+input[type='text'],input[type='password'] { width: 143px; }
+.input { vertical-align: middle; }
+
+.storage input { float: left; }
+.cell input { vertical-align: top; margin-top: 30px; }
+
+input#tab { margin-left: 15px };
+
+/* Containers
+====================================================== */
+.left { float:left; }
+.right { float: right; }
+#logout { margin-top: 5px; }
+#container { margin-top: 10px; }
+#shares div.left { float: left; margin-right: 100px; }
+#shares div.right { float: left; }
+#shares h1 span { border-radius:7px; -webkit-border-radius:7px; -moz-border-radius:7px; -o-border-radius:7px; -khtml-border-radius:7px; background-color:#484848; color:#FFFFFF; font-size:9px; font-weight:bold; padding:2px; vertical-align:middle; margin-left: 10px; display:inline;}
+
+.desc { float: right; margin-top: 5px; }
+
+.storage { min-width: 70px; float: left; margin: 0 20px 8px 20px; }
+.spacer { margin-bottom: 20px; }
+.status { float: left; margin-top: 10px; }
+
+.diskspace { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; padding: 0px 2px; background-color: #FF6600; color: #FFF; font-size: 11px; margin-top: -1px; margin-left: 5px; }
+
+.disk { float: left; width: 70px; }
+
+.newspace { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; margin: 12px 0 0 15px; padding: 0 2px 0 3px; background-color: #FF6600; color: #FFF; font-size: 11px; height: 12px }
+
+.newsize { float: left; margin-top: 13px; margin-left: 5px; }
+
+.pool { margin: 10px 5px 10px 0; float:left; width: 490px; }
+.pool #pool { float: left; line-height: 1.6em; width: 350px; }
+.raidlevel { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; margin-right: 5px; padding: 1px 2px; color: #FFF; line-height: 1.3; }
+.raidlevel.Raid1 { background-color: #1E776D; }
+.raidlevel.Raid5 { background-color: #4A4A4A; }
+.raidlevel.Raid0 { background-color: #58D5C7; }
+.pool #capacity { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; margin-right: 5px; padding: 1px 2px; background-color: #FF6600; color: #FFF;}
+
+.volumes { margin: 0 0 10px 0; }
+.volumes #pool { float: left; line-height: 1.6em; margin-right: 5px; margin-top: 10px; }
+.volumes #raidlevel { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; margin-right: 5px; padding: 1px 2px; background-color: #CCC; color: #FFF;}
+.volumes #capacity { float: left; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; margin-right: 5px; padding: 1px 2px; background-color: #FF6600; color: #FFF;}
+.volumes .stat { float: right; min-width: 90px; margin-top: 10px; }
+
+.permissions { margin-bottom: 10px; }
+.permissions select { margin: 2px 2px 25px 0px; }
+
+.left { float: left; margin-right: 40px; min-width: 265px; }
+#shares .left,
+.permissions .left { float: left; margin-right: 40px; min-width: 155px; }
+.leftnospace { float: left; }
+.right { float: right;}
+
+div.slider { width: 150px; margin: 5px 50px 0; height: 16px; background: #eee; float: left; }
+div.slidercreate{ width: 150px; margin-left: 83px; margin-top: 5px; height: 16px; background: #eee; }
+div.panel { background: #000; width: 10px; height: 15px; }
+div.remove { float: left; margin-right: 35px; }
+div.remove p { margin-top: 5px; }
+
+div#login { display: block; height: 0px; left: 0; overflow: visible; position: absolute; text-align: center; top: 35%; visibility: visible; width: 100%; }
+div#loginbox { height: 70px; left: 50%; margin-left: -145px; position: absolute; top: 250px; visibility: visible; width: 250px;}
+
+div#center { margin-bottom: 120px; margin-top: 120px; text-align: center; }
+
+/* Java Script style's
+====================================================== */
+
+#static { display: none; }
+ 
+.result { overflow: auto; padding-bottom: 10px; }
+.result input {margin-top: 3px;}
+.ajax-loading { padding: 20px 0; background: url(/images/spinner.gif) no-repeat center; }
+.ajax-loading input { display:none; }
+
+#popup { display: none; background-color: #FFFFFF; }
+
+.validate { float: right; margin-right: 355px; margin-top: 1px; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px; -khtml-border-radius:3px; background-color: crimson; height: 14px; line-height: 1.8; font-size: 11px; color: #fff; }
+.validate span {padding: 0 4px;}
+
+.formcontainer { min-height: 30px; padding: 10px 0 10px 0; }
+.formcontainer div { padding-bottom: 5px; }
+.loginform { padding-bottom: 5px; text-align: right; }
+
+/* Buttons
+======================================================= */
+.submit {
+	background: #222 url(/images/overlay-button.png) repeat-x;
+	display: inline-block;
+	padding: 2px 3px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 1.5;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border: 1px solid #555;
+	position: relative;
+	cursor: pointer;
+	font-size: 11px;
+	float:right;
+}
+
+.submit:hover {
+	background-color:#111111;
+	color:#FFFFFF;
+}
+
+.other {
+	background: #222 url(/images/overlay-button.png) repeat-x;
+	display: inline-block;
+	padding: 2px 3px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 1.5;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border: 1px solid #555;
+	position: relative;
+	cursor: pointer;
+	font-size: 11px;
+}
+
+.othr:hover {
+	background-color:#111111;
+	color:#FFFFFF;
+}
+
+a.addform img {
+	opacity:0.2;filter:alpha(opacity=20);
+}
+
+a.addform:hover img {
+	opacity:1;filter:alpha(opacity=100);
+}
+
+.delpool {
+	margin-top: 10px;
+	float: left;
+}

@@ -1,0 +1,193 @@
+#!/bin/sh
+#
+# 
+#
+# 
+# Description
+# 
+# @license		GNU General Public License
+# @author		Thomas Brandstetter
+# @link			http://www.pulsaros.com
+# @email		admin@pulsaros.com
+# 
+# @file			filesystem
+# @version		0.7alpha
+# @date			07/04/2011
+# 
+# Copyright (c) 2009-2011
+#
+# ##############################################
+ 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT
+# HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR
+# FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE
+# OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,
+# COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT
+# BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL
+# DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://gnu.org/licenses/>.
+# 
+
+#
+# Mount all PulsarOS storage pools.
+#
+
+#
+# Variables
+#
+# ============================================================
+CONFIG_HOME=/pulsarroot/configs/storage
+
+start() {
+	chk_prerequisites
+	mount_md
+	mount_lost
+	mount_replaced
+	# Activate all volume groups
+	vgchange -ay
+ 	echo -n "Mount filesystems: "
+	for i in `cat $CONFIG_HOME/filesystems`
+	do
+		disk=`echo $i | awk -F'|' '{print $1}'`
+		directory=`echo $i | awk -F'|' '{print $2}'`
+		if [ ! -d $directory ]; then
+			mkdir -p $directory
+		fi
+		mount -o acl $disk $directory
+	done;
+	echo "OK"
+}
+
+stop() {
+	echo -n "Unmount filesystems: "
+	for i in `cat $CONFIG_HOME/filesystems`
+	do
+		directory=`echo $i | awk -F'|' '{print $2}'`
+		umount $directory
+	done;
+	echo "OK"
+}
+
+restart() {
+	stop
+	start
+}
+
+get_devices() {
+	x=0
+	for i in `cat /proc/diskstats | awk '{ print $3}' | grep -v loop | grep -v ram | grep -v md`;do
+		if [ -b /dev/$i ]; then
+			UUID=`mdadm /dev/$i --examine | grep 'Array UUID'|awk '{print $4}'`
+			if [ "$UUID" == "$1" ]; then
+				x=`expr $x + 1`
+				DEVICES="$DEVICES /dev/$i"
+				devcount=`mdadm --query /dev/$i | grep device|awk '{print $5}'`
+				raidlevel=`mdadm --query /dev/$i | grep device|awk '{print $8}'`
+			fi
+		fi
+	done
+	if [ `expr $devcount - $x` -eq 0 ]; then
+		echo $DEVICES
+	else
+		case $raidlevel in
+			"raid1"|"raid5")
+				if [ `expr $devcount - $x` -le 1 ]; then
+					DEVICES="$DEVICES --run"
+					echo $DEVICES
+				else
+					echo "FAILURE" >> /tmp/raidtest
+				fi
+			;;
+			"raid6")
+				if [ `expr $devcount - $x` -le 2 ]; then
+					DEVICES="$DEVICES --run"
+					echo $DEVICES
+				else
+					echo "FAILURE" >> /tmp/raidtest
+				fi
+			;;
+		esac
+	fi
+}
+
+chk_prerequisites() {
+	# Make sure all requirements exists
+	[ -d /storage ] || exit 0
+}
+
+mount_md() {
+	# Mount MD devices
+	old_IFS=$IFS
+	IFS=$'\n'
+	for i in `cat $CONFIG_HOME/mdadm.conf`; do
+		if [ `echo $i | grep -c spares` -eq 1 ]; then
+			uuid=`echo $i | awk -F= '{print $5}'`
+		else 
+			uuid=`echo $i | awk -F= '{print $4}'`
+		fi
+		mdevice=`echo $i | awk '{print $2}'`
+		devices=`get_devices $uuid`
+		IFS=$old_IFS
+		mdadm --assemble $mdevice $devices
+		IFS=$'\n'
+	done
+	old_IFS=$IFS
+}
+
+mount_lost() {
+	#Remount lost disks
+	for i in `cat /proc/partitions | grep -v md | grep -v dm | awk '{print $4}'`; do
+		if [ -b /dev/$i ]; then
+			uid=`mdadm /dev/$i --examine | grep 'Array UUID' | awk '{print $4}'`
+			if [ "$uid" != "" ]; then
+				metadevice=`cat $CONFIG_HOME/mdadm.conf | grep $uid | awk '{print $2}'`
+				if [ `mdadm --detail $metadevice | grep $i |grep -c active` == 0 ]; then
+					mdadm --manage $metadevice --add /dev/$i
+				fi
+			fi
+		fi
+	done;
+}
+
+mount_replaced() {
+	#Mount replaced disks (with bigger ones)
+	for i in `cat /proc/partitions | grep -v md | grep -v dm | awk '{print $4}'`; do
+		if [ -b /dev/$i ]; then
+			uid=`mdadm /dev/$i --examine | grep -c 'Array UUID'`
+			mdevice=`grep -c /dev/$i $CONFIG_HOME/pool.xml`
+			if [ "$uid" ==  0 ] && [ $mdevice == 1 ]; then
+				mdname=`/pulsarroot/bin/getpool /dev/$i | grep mdname | awk '{print $2}'`
+				if [ $mdname != "" ]; then
+						mdadm --manage $mdname --add /dev/$i
+						/pulsarroot/bin/setpool /dev/$i
+				fi
+			fi
+		fi
+	done;
+}
+
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  restart|reload)
+  	restart
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

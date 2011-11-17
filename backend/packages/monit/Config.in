@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MONIT
+	bool "monit"
+	help
+	  Monit is linux system watchdog
+	  http://www.mmonit.com/monit

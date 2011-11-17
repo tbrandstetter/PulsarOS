@@ -1,0 +1,192 @@
+#!/bin/sh
+#
+#
+#
+#
+# Description
+#
+# @license		GNU General Public License
+# @author		Thomas Brandstetter
+# @link			http://www.pulsaros.com
+# @email		admin@pulsaros.com
+# 
+# @file			nfs
+# @version		0.7alpha
+# @date			07/04/2011
+#
+# Copyright (c) 2009-2011
+#
+# ##############################################
+
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT
+# HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR
+# FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE
+# OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,
+# COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT
+# BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL
+# DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://gnu.org/licenses/>.
+#
+
+#
+# Startup nfs server
+#
+
+#
+# Variables
+#
+# ============================================================
+PROCESSES="4"
+QUOTAS="no"
+
+case "$1" in
+	start)
+		# prerequisites
+		# create directories and files
+		[ ! -d /var/lib/nfs ] && mkdir -p /var/lib/nfs
+		[ ! -d /var/lib/nfs/v4recovery ] && mkdir -p /var/lib/nfs/v4recovery
+		[ ! -d /var/lib/nfs/rpc_pipefs ] && mkdir -p /var/lib/nfs/rpc_pipefs
+		if [ ! -f /var/lib/nfs/etab ]; then
+			touch /var/lib/nfs/etab
+			chmod 644 /var/lib/nfs/etab
+		fi
+		if [ ! -f /var/lib/nfs/xtab ]; then
+			touch /var/lib/nfs/xtab
+			chmod 644 /var/lib/nfs/xtab
+		fi
+		if [ ! -f /var/lib/nfs/rmtab ]; then
+			touch /var/lib/nfs/rmtab
+			chmod 644 /var/lib/nfs/rmtab
+		fi
+		if [ ! -f /var/lib/nfs/state ]; then
+			touch /var/lib/nfs/state
+			chmod 644 /var/lib/nfs/state
+		fi
+
+		echo "starting NFS processes"
+		/usr/local/bin/rpcbind -h 127.0.0.1
+		echo `ps|grep rpcbind|grep -v grep|awk '{print $1}'` >> /var/run/rpcbind.pid
+
+		echo "Mount virtual nfs filesystem"
+		/bin/mount -t rpc_pipefs none /var/lib/nfs/rpc_pipefs 2>&1 > /dev/null
+		/bin/mount -t nfsd none /proc/fs/nfsd 2>&1 > /dev/null
+
+		# starting idmap daemon
+		#/usr/local/sbin/rpc.idmapd
+		#if [ `echo $?` == "0" ]; then
+		#	echo `ps|grep idmapd|grep -v grep|awk '{print $1}'` >> /var/run/idmapd.pid
+		#else 
+		#	exit 1
+		#fi
+
+		# get actual export information and start mountd
+		/usr/local/sbin/exportfs -av 2>&1 > /dev/null
+		/usr/local/sbin/rpc.mountd
+		if [ `echo $?` == "0" ]; then
+			echo `ps|grep mountd|grep -v grep|awk '{print $1}'` >> /var/run/mountd.pid
+		else
+			exit 1
+		fi
+
+		# starting stat daemon
+		/usr/local/sbin/rpc.statd --no-notify
+		if [ `echo $?` == "0" ]; then
+			echo `ps|grep statd|grep -v grep|awk '{print $1}'` >> /var/run/rpc.statd.pid
+		else
+			exit 1
+		fi
+		if [ "$QUOTAS" = "yes" ]; then
+			/usr/local/sbin/rpc.rquotad
+			if [ `echo $?` == "0" ]; then
+				echo `ps|grep rquotad|grep -v grep|awk '{print $1}'` >> /var/run/rquotad.pid
+			else
+				exit 1
+			fi
+		fi
+
+		/usr/local/sbin/rpc.nfsd -N 2 -N 4 $PROCESSES
+		if [ `echo $?` == "0" ]; then
+			echo `ps|grep nfsd|grep -v grep|awk '{print $1}'` >> /var/run/nfsd.pid
+		else
+			exit 1
+		fi
+
+		# start to notify clients
+		#/usr/local/sbin/sm-notify
+
+		echo "Export NFS filesystems"
+		/usr/local/sbin/exportfs -ra 2>&1 > /dev/null
+	;;
+
+	stop)
+		echo "Stopping NFS processes"
+
+		if [ -f /var/run/nfsd.pid ]; then
+			kill `cat /var/run/nfsd.pid`
+			rm /var/run/nfsd.pid
+		fi
+
+		if [ -f /var/run/rpc.statd.pid ]; then
+			kill `cat /var/run/rpc.statd.pid` 
+			rm /var/run/rpc.statd.pid 
+		fi
+
+		if [ -f /var/run/mountd.pid ]; then
+			kill `cat /var/run/mountd.pid`
+			rm /var/run/mountd.pid
+		fi
+
+		if [ "$QUOTAS" = "yes" ]; then
+			if [ -f /var/run/rquotad.pid ]; then 
+				kill `cat /var/run/rquotad.pid`
+				sleep 1
+				rm /var/run/rquotad.pid
+			fi
+		fi
+
+		#if [ -f /var/run/idmapd.pid ]; then
+		#	kill `cat /var/run/idmapd.pid`
+		#	rm /var/run/idmapd.pid
+		#fi
+
+		if [ -f /var/run/rpcbind.pid ]; then
+			kill `cat /var/run/rpcbind.pid`
+			rm /var/run/rpcbind.pid
+		fi
+
+		echo "Unmount virtual nfs filesystem"
+		if [ "`/bin/mount|grep -c '/proc/fs/nfsd'`" == "1" ]; then
+			/bin/umount /proc/fs/nfsd 2>&1 > /dev/null
+		fi
+		if [ "`/bin/mount|grep -c '/var/lib/nfs/rpc_pipefs'`" == "1" ]; then
+			/bin/umount /var/lib/nfs/rpc_pipefs 2>&1 > /dev/null
+		fi
+		/usr/local/sbin/exportfs -au 2>&1 > /dev/null
+	;;
+
+	reload)
+		echo "Reload NFS server"
+		/usr/local/sbin/exportfs -ra
+	;;
+
+	restart)
+		$0 stop
+		sleep 1
+		$0 start
+	;;
+
+	*)
+		echo "Usage: $0 {start|stop|reload|restart}"
+		exit 1
+	;;
+esac
+exit 0

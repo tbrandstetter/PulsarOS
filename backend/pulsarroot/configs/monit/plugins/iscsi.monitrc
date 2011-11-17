@@ -1,0 +1,5 @@
+check process tgtd with pidfile /var/run/tgtd.pid
+	start program  "/etc/init.d/iscsi start"
+	stop program  "/etc/init.d/iscsi stop"
+	if failed host 127.0.0.1 port 3260 type TCP  then restart
+	if 5 restarts within 5 cycles then timeout

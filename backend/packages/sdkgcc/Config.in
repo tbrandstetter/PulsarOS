@@ -1,0 +1,5 @@
+config BR2_PACKAGE_SDKGCC
+	bool "sdkgcc"
+	help
+	  The GNU gcc compiler:
+	  http://www.gnu.org/software/gcc/

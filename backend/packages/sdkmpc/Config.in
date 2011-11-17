@@ -1,0 +1,9 @@
+config BR2_PACKAGE_SDKMPC
+	bool "sdkmpc"
+	select BR2_PACKAGE_SDKMPFR
+	select BR2_PACKAGE_SDKGMP
+	help
+	  Mpc is a C library for the arithmetic of complex numbers with
+	  arbitrarily high precision and correct rounding of the result.
+	  It is built upon and follows the same principles as Mpfr.
+	  http://www.multiprecision.org/

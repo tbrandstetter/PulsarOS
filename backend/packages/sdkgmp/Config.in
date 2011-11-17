@@ -1,0 +1,5 @@
+config BR2_PACKAGE_SDKGMP
+	bool "sdkgmp"
+	help
+	  GNU Multiple Precision Arithmetic Library.
+	  http://gmplib.org/

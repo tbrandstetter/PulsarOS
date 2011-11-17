@@ -1,0 +1,13 @@
+pkgname=kernel
+pkgver=0.7alpha
+pkgrel=6
+pkgdesc="PulsarOS kernel image"
+arch=('i686')
+url="pulsaros.com"
+license=('GPL')
+groups=('core')
+
+build() {
+	mkdir -p $pkgdir/boot/boot/extlinux
+	cp $startdir/bzImage $pkgdir/boot/boot/extlinux/
+}

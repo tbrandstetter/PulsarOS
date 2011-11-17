@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# 
+#
+# 
+# Description
+# 
+# @license		GNU General Public License
+# @author		Thomas Brandstetter
+# @link			http://www.pulsaros.com
+# @email		admin@pulsaros.com
+# 
+# @file			frontend
+# @version		0.7alpha
+# @date			07/04/2011
+# 
+# Copyright (c) 2009-2011
+#
+# ##############################################
+ 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT
+# HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR
+# FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE
+# OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,
+# COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT
+# BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL
+# DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://gnu.org/licenses/>.
+#
+
+#
+# Startup frontend
+#
+
+#
+# Variables
+#
+# ============================================================
+export PATH=$PATH:/usr/local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+case "$1" in
+  start)
+        echo "Starting frontend..."
+	httpd -c /pulsarroot/configs/system/httpd.conf
+	ps |grep httpd|awk '{print $1}' > /var/run/httpd.pid
+        ;;
+  stop)
+        echo -n "Stopping frontend..."
+	pkill httpd
+        ;;
+  restart|reload)
+        "$0" stop
+        "$0" start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?

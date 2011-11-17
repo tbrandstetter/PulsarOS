@@ -1,0 +1,4 @@
+config BR2_PACKAGE_SDKUCLIBC
+	bool "sdkuclibc"
+	help
+	  UCLIBC c library
