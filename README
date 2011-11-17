@@ -1,0 +1,21 @@
+PulsarOS is an Linux based Network-Attached Storage (NAS)/Homeserver distribution. The goal? To create a distribution like FreeNAS or Openfiler for home use. The philosophy? PulsarOS is kept simple. No need for thousands of configuration options. Upon release, PulsarOS will have just the necessary administration options to create a powerful NAS system @home.
+ 
+The best thing about PulsarOS? --minimal storage requirement! The installer needs 20Mb (32-bit) in memory. The installation footprint is just 15Mb (32-bit)! PulsarOS is the perfect distribution for Intel's Atom or VIA's mini-itx processors. Combined with an IDE-CF adapter or small flash module it's silent and "green".
+ 
+The plugin system makes PulsarOS highly extensible while keeping the distribution simple. Upon installation, PulsarOS is just a NAS for you, fully configured; it is the keystone for your digital home.
+ 
+ 
+ 
+Benefits
+ •Loads completely into ram (Failsafe)
+ •Modular design (Plugin system)
+ •Clean and simple frontend
+ •Uses the latest linux technology (kernel 2.6.*, mdadm and lvm2, ext4 as filesystem)
+ 
+ 
+ 
+Used technologies
+ •Buildroot
+ •Busybox
+ •Monit
+ •Codeigniter for the Frontend
