@@ -7,11 +7,7 @@
  * @license		GNU General Public License
  * @author		Thomas Brandstetter
  * @link		http://www.pulsaros.com
- * @email		tb@digitalplayground.at
- * 
- * @file		pulsaros.js
- * @version		0.6alpha
- * @date		22/02/2011
+ * @email		admin@pulsaros.com
  * 
  * Copyright (c) 2009-2011
  */

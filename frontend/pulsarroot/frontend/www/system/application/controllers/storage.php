@@ -11,10 +11,6 @@
  * @link		http://www.pulsaros.com
  * @email		tb@digitalplayground.at
  * 
- * @file		storage.php
- * @version		0.7alpha
- * @date		26/07/2011
- * 
  * Copyright (c) 2009-2011
  */
  
