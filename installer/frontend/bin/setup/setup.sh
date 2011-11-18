@@ -10,10 +10,6 @@
 # @link			http://www.pulsaros.com
 # @email		admin@pulsaros.com
 # 
-# @file			setup.sh
-# @version		0.7alpha
-# @date			16/04/2011
-# 
 # Copyright (c) 2009-2011
 #
 # ##############################################
@@ -198,10 +194,14 @@ install_os()
 	rm -rf /var/lib/nfs
 	$PACMAN /mnt/core/*.pkg.tar.gz
 	cd $HOME
+	
 	# move netatalk config to system's pulsarroot
 	mv /pulsarroot/configs/netatalk /pulsarcore/configs/
-	# change permissions of pulsarcore
+	
+	# change permissions
 	chown -R root:root /pulsarcore/*
+	chmod 600 /pulsarcore/configs/monit/monitrc
+	
 	#======================================================================================
 	# configure network
 	echo $hostname > /pulsarcore/configs/system/hostname
