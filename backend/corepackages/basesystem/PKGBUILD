@@ -16,7 +16,7 @@ build() {
 	sudo rm -r /mnt/pulsarroot/*
 	cd $startdir
 	sudo cp -r $startdir/pulsarroot/* $pkgdir/pulsarcore/
-	sudo cp $startdir/routes.php $pkgdir/pulsarcore/frontend/www/system/application/config/
+	#sudo cp $startdir/routes.php $pkgdir/pulsarcore/frontend/www/system/application/config/
 	sudo cp $startdir/fstab $pkgdir/pulsarcore/configs/system/fstab
 	sudo chown -R root:root $pkgdir/pulsarcore
 	cd $startdir
