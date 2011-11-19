@@ -22,6 +22,14 @@
 						<input class="validate['confirm[password]']" type='password' name='confirm' value='' />
 					</div>
 					<div>
+						<label class='text'>Home Directory:</label>
+						<select>
+							{pools}
+							<option>{name}</option>
+							{/pools}
+						</select>
+					</div>
+					<div>
 						<input type='checkbox' name='scponly' value='y' />
 						<label class='text'>SSHFS/SCP</label>
 					</div>
