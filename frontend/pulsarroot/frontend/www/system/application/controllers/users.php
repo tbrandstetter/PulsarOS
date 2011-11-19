@@ -57,6 +57,7 @@ class users extends Controller
 		// Initialize needed libraries
 		$this->load->library('parser');
 		$this->load->library('core', $params);
+		$this->load->library('disk', $params);
 		$this->load->library('configs', $params);
 		$this->load->library('user', $params);
 		$this->load->library('share', $params);
