@@ -9,13 +9,9 @@
  * @license		GNU General Public License
  * @author		Thomas Brandstetter
  * @link		http://www.pulsaros.com
- * @email		tb@digitalplayground.at
+ * @email		admin@pulsaros.com
  * 
- * @file		users.php
- * @version		0.5alpha
- * @date		12/02/2009
- * 
- * Copyright (c) 2009-2010
+ * Copyright (c) 2009-2011
  */
  
 /**
@@ -58,6 +54,7 @@ class users extends Controller
 		$this->load->library('parser');
 		$this->load->library('core', $params);
 		$this->load->library('disk', $params);
+		$this->load->library('volume', $params);
 		$this->load->library('configs', $params);
 		$this->load->library('user', $params);
 		$this->load->library('share', $params);
@@ -113,6 +110,7 @@ class users extends Controller
 		// add user
 		$user['name'] = htmlspecialchars($_POST['name']);
 		$user['password'] = htmlspecialchars($_POST['password']);
+		$user['pool'] = htmlspecialchars($_POST['pool']);
 		$user['scponly'] = htmlspecialchars($_POST['scponly']);
 		$this->user->addUser('shadow', $user);
 		$this->configs->chgConfig('/etc/passwd', $this->config->item('confdir'));
@@ -124,9 +122,9 @@ class users extends Controller
 		// Change this to a default variable -
 		// set in the configuration options
 		$volume['size'] = "100";
-		$xml = array('name' => $volume['name'], 'description' => $description, 'size' => $volume['size'],
+		$xml = array('name' => $volume['name'], 'description' => 'Home directory', 'size' => $volume['size'],
 					 'share' => 'offline', 'status' => 'off', 'pool' => $volume['pool'], 
-				     'iscsi' => "n");
+				     'iscsi' => "n", 'homedir' => "y");
 		$this->configs->addSettings('volume', $xml);
 		$this->volume->addVolume($volume);
 	}

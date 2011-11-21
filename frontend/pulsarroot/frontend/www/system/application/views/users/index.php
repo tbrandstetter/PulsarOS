@@ -23,7 +23,7 @@
 					</div>
 					<div>
 						<label class='text'>Home Directory:</label>
-						<select>
+						<select name='pool'>
 							{pools}
 							<option>{name}</option>
 							{/pools}
