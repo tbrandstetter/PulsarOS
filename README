@@ -7,15 +7,40 @@ The plugin system makes PulsarOS highly extensible while keeping the distributio
  
  
 Benefits
- •Loads completely into ram (Failsafe)
- •Modular design (Plugin system)
- •Clean and simple frontend
- •Uses the latest linux technology (kernel 2.6.*, mdadm and lvm2, ext4 as filesystem)
- 
- 
+========
+ • Loads completely into ram (Failsafe)
+ • Modular design (Plugin system)
+ • Clean and simple frontend
+ • Uses the latest linux technology (kernel 2.6.*, mdadm and lvm2, ext4 as filesystem)
  
 Used technologies
- •Buildroot
- •Busybox
- •Monit
- •Codeigniter for the Frontend
+=================
+ • Buildroot
+ • Busybox
+ • Monit
+ • Codeigniter for the Frontend
+ 
+
+Build PulsarOS with the framework
+=================================
+
+0. Prerequisites
+----------------
+Pacman (http://www.archlinux.org/pacman)
+make
+gcc
+
+
+1. Fetch the framework on github
+--------------------------------
+cd $HOME
+git clone https://github.com/tbrandstetter/PulsarOS.git
+
+2. Start the framework build
+----------------------------
+cd PulsarOS
+./setup.sh "arch" "path to workdir" (right now we only support "x86" architecture)
+
+3. Fetch the built image
+------------------------
+Location: "workdir path"/images
