@@ -98,7 +98,17 @@ class Volumes extends Controller
 			$x = 0;
 			foreach ($xml->volume as $volume) {
 				if ("$volume->pool" == "$pool->name") {
-					if (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') == 1) {
+					if ($volume->homedir == "y") {
+						$html['pools'][$i]['homedir_volumes'][$x]['volume'] = $volume->name;
+						$html['pools'][$i]['homedir_volumes'][$x]['description'] = $volume->description;
+						$html['pools'][$i]['homedir_volumes'][$x]['share'] = $volume->share;
+						$html['pools'][$i]['homedir_volumes'][$x]['status'] = $volume->status;
+						$html['pools'][$i]['homedir_volumes'][$x]['usedsize'] = $this->volume->getVolsize($pool->name, $volume->name);
+						$html['pools'][$i]['homedir_volumes'][$x]['maxsize'] = $volume->size + $html['pools'][$i]['remaining'];
+						$html['pools'][$i]['homedir_volumes'][$x]['volsize'] = $volume->size;
+						$html['pools'][$i]['homedir_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
+					}
+					elseif (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') == 1) {
 						$html['pools'][$i]['volumes'][$x]['volume'] = $volume->name;
 						$html['pools'][$i]['volumes'][$x]['description'] = $volume->description;
 						$html['pools'][$i]['volumes'][$x]['share'] = $volume->share;
@@ -116,16 +126,6 @@ class Volumes extends Controller
 						$html['pools'][$i]['iscsi_volumes'][$x]['status'] = $volume->status;
 						$html['pools'][$i]['iscsi_volumes'][$x]['iscsi'] = $volume->iscsi;
 						$html['pools'][$i]['iscsi_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
-					}
-					elseif ($volume->homedir == "y") {
-						$html['pools'][$i]['homedir_volumes'][$x]['volume'] = $volume->name;
-						$html['pools'][$i]['homedir_volumes'][$x]['description'] = $volume->description;
-						$html['pools'][$i]['homedir_volumes'][$x]['share'] = $volume->share;
-						$html['pools'][$i]['homedir_volumes'][$x]['status'] = $volume->status;
-						$html['pools'][$i]['homedir_volumes'][$x]['usedsize'] = $this->volume->getVolsize($pool->name, $volume->name);
-						$html['pools'][$i]['homedir_volumes'][$x]['maxsize'] = $volume->size + $html['pools'][$i]['remaining'];
-						$html['pools'][$i]['homedir_volumes'][$x]['volsize'] = $volume->size;
-						$html['pools'][$i]['homedir_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
 					}
 					else {
 						$html['pools'][$i]['state'] = "<p>Volume error - please check pool state!</p>";
