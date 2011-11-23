@@ -119,14 +119,20 @@ class users extends Controller
 		// add default home volume
 		$volume['name'] = $user['name'];
 		$volume['pool'] = $user['pool'];
+		$volume['remaining'] = htmlspecialchars($_POST['remaining']);
+		
 		// Change this to a default variable -
 		// set in the configuration options
 		$volume['size'] = "100";
-		$xml = array('name' => $volume['name'], 'description' => 'Home directory', 'size' => $volume['size'],
+		
+		// only create a home volume if enough space is available
+		if ($volume['size'] < $volume['remaining']) {
+			$xml = array('name' => $volume['name'], 'description' => 'Home directory', 'size' => $volume['size'],
 					 'share' => 'offline', 'status' => 'off', 'pool' => $volume['pool'], 
 				     'iscsi' => "n", 'homedir' => "y");
-		$this->configs->addSettings('volume', $xml);
-		$this->volume->addVolume($volume);
+			$this->configs->addSettings('volume', $xml);
+			$this->volume->addVolume($volume);
+		}
 	}
 	
 	function del($user)
