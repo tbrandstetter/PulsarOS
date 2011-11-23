@@ -94,6 +94,7 @@ class Volumes extends Controller
 			}
 			$html['pools'][$i]['volumes'] = array();
 			$html['pools'][$i]['iscsi_volumes'] = array();
+			$html['pools'][$i]['homedir_volumes'] = array();
 			$html['pools'][$i]['state'] = "";
 			$x = 0;
 			foreach ($xml->volume as $volume) {
