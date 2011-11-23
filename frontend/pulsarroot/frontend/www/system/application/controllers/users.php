@@ -79,8 +79,6 @@ class users extends Controller
 		foreach ($xml_pool->pool as $pool) {
 			$html['pools'][$i]['name'] = $pool->name;
 			$html['pools'][$i]['capacity'] = $this->core->calcByte($pool->capacity);
-			// get remaining pool size
-			$html['pools'][$i]['remaining'] = round($this->disk->getPoolsize($pool->name, "yes"));
 			$i++;
 		}
 		
@@ -119,11 +117,13 @@ class users extends Controller
 		// add default home volume
 		$volume['name'] = $user['name'];
 		$volume['pool'] = $user['pool'];
-		$volume['remaining'] = htmlspecialchars($_POST['remaining']);
 		
 		// Change this to a default variable -
 		// set in the configuration options
 		$volume['size'] = "100";
+		
+		// get remaining pool size
+		$volume['remaining'] = round($this->disk->getPoolsize($volume['pool'], "yes"));
 		
 		// only create a home volume if enough space is available
 		if ($volume['size'] < $volume['remaining']) {
