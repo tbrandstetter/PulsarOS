@@ -137,6 +137,7 @@
 			<div id='validate{volume}'></div>
 			{/iscsi_volumes}
 			{homedir_volumes}
+			<h2>Userhome Volumes</h2>
 			<div class='list'>
 				<div class='formtoggle'>
 					<div class='name'>
