@@ -26,21 +26,38 @@ Build PulsarOS with the framework
 
 0. Prerequisites
 ----------------
-Pacman (http://www.archlinux.org/pacman)
-make
+Supported Plattform - Debian (but other distros should also work)
+bsdtar
+libarchive-dev
+pacman (http://www.archlinux.org/pacman)
+bison
+flex
 gcc
-
+g++
+git
+gettext
+make
+texinfo
+unzip
 
 1. Fetch the framework on github
 --------------------------------
 cd $HOME
 git clone https://github.com/tbrandstetter/PulsarOS.git
+find . -name *.sh -exec chmod 755 {} \;
 
-2. Start the framework build
+2. Change pacman config (makepkg.conf)
+--------------------------------------
+CARCH="i686"
+CHOST="i686-pc-linux-gnu"
+CFLAGS="-march=i686 -mtune=generic -O2 -pipe"
+CXXFLAGS="-march=i686 -mtune=generic -O2 -pipe"
+
+3. Start the framework build
 ----------------------------
 cd PulsarOS
 ./setup.sh "arch" "path to workdir" (right now we only support "x86" architecture)
 
-3. Fetch the built image
+4. Fetch the built image
 ------------------------
 Location: "workdir path"/images
