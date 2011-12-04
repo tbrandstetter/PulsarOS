@@ -9,13 +9,9 @@
  * @license		GNU General Public License
  * @author		Thomas Brandstetter
  * @link		http://www.pulsaros.com
- * @email		tb@digitalplayground.at
+ * @email		admin@pulsaros.com
  * 
- * @file		shares.php
- * @version		0.5alpha
- * @date		02/08/2010
- * 
- * Copyright (c) 2009-2010
+ * Copyright (c) 2009-2011
  */
 
 /**
