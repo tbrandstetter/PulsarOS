@@ -8,14 +8,10 @@
  * 
  * @license		GNU General Public License
  * @author		Thomas Brandstetter
- * @link		http://www.digitalplayground.at
- * @email		tb@digitalplayground.at
+ * @link		http://www.pulsaros.com
+ * @email		admin@pulsaros.com
  * 
- * @file		pulsarcfg.php
- * @version		0.5alpha
- * @date		24/10/2010
- * 
- * Copyright (c) 2009-2010
+ * Copyright (c) 2009-2011
  */
  
 /**
