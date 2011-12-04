@@ -1,10 +1,10 @@
 <div id="main">
 	<div id='content'>
-		{plugin}
 		<h1>Plugins</h1>
+		{plugin}
 		<div class='storage'>
 			<div class='img'>
-				<img class='hdd' src='/images/hdd.png' />
+				<img class='hdd' src='http://plugins.pulsaros.com/plugins/{logo}' />
 				<br />
 				<img class='stat' src='/images/{availability}.png' />
 			</div>
@@ -12,6 +12,7 @@
 				<p><b>{name}</b></p>
 				<p>{version}</p>
 				<p>{author}</p>
+				<p>{status}</p>
 			</div>
 		</div>
 		{/plugin}

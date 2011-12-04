@@ -61,8 +61,25 @@ class Plugins extends Controller
 			$this->parser->parse('plugins/error', $html);
 		}
 		else {
+			// goes to library function Plugin.php
 			$plugins = json_decode(file_get_contents('http://plugins.pulsaros.com/index.php/api/plugins/format/json'));
-			$this->parser->parse('plugins/index', $plugins);
+			
+			foreach ($plugins->plugin as $plugin) {
+				$html['plugin'][$i]['name'] = $plugin->name;
+				$html['plugin'][$i]['author'] = $plugin->author;
+				$html['plugin'][$i]['version'] = $plugin->version;
+				$html['plugin'][$i]['logo'] = "$plugin->name.png";
+				
+				// goes to library function Plugin.php
+				if (exec('pacman -Q '. $plugin->name .'|wc -l') == "1") {
+					$html['plugin'][$i]['status'] = "Installed";
+				}
+				else {
+					$html['plugin'][$i]['status'] = '<a href="index.php/plugins/'. $plugin->name .'">Install</a>';
+				}
+				$i++;
+			}
+			$this->parser->parse('plugins/index', $html);
 		}
 		$this->load->view('footer');
 	}
