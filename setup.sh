@@ -67,7 +67,7 @@ prepare_pulsar ()
 	[ ! -f $WORKDIR/boot_$ARCH/.pulsarinstall ] && touch $WORKDIR/boot_$ARCH/.pulsarinstall
 }
 
-make_pulsar ()
+stage_pulsar ()
 {
 	echo "Download & prepare buildroot"
 	if [ ! -d $WORKDIR/build_$ARCH ]; then
@@ -86,7 +86,10 @@ make_pulsar ()
 	cp -r $BASE/backend/startupscripts $WORKDIR/
 	cp -r $BASE/backend/corepackages $WORKDIR/
 	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
-	
+}
+
+make_pulsar ()
+{
 	echo "Compile $arch build" 
 	cd $WORKDIR
 	
@@ -176,6 +179,7 @@ make_image ()
 [ $# != 3 ] && printf "Argument expected: setup.sh 'arch' 'workdir_location' '[all|frontend]'\n" && exit 1
 
 prepare_pulsar
+stage_pulsar
 
 case $3 in
 	"all")
