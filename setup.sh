@@ -44,9 +44,6 @@ MOUNT_PULSAR=$WORKDIR/mount/pulsar
 PACKAGE_DIR=$WORKDIR/corepackages
 GCC_DIR=$WORKDIR/gcc
 
-# Syntax check
-[ $# != 2 ] && printf "Argument expected: setup.sh 'arch' 'workdir_location'\n" && exit 1
-
 # Build the pulsar os image
 # Functions
 
@@ -84,7 +81,7 @@ make_pulsar ()
 	echo "Staging workdir..."
 	cp -r $BASE/backend/configs $WORKDIR/
 	cp -r $BASE/backend/pulsarroot $WORKDIR/
-	cp -r $BASE/frontend/pulsarroot $WORKDIR/
+	cp -r $BASE/frontend/pulsarroot/frontend $WORKDIR/
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
 	cp -r $BASE/backend/corepackages $WORKDIR/
@@ -149,9 +146,20 @@ make_pulsar ()
 	cd $PACKAGE_DIR/basesystem && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/basesystem/basesystem-$VERSION-* $WORKDIR/boot_$ARCH/core/
 	
+	# build frontend package
+	build_frontend
+	
 	# cleanup package directories
 	sudo rm -r $PACKAGE_DIR/basesystem/initrd* $PACKAGE_DIR/basesystem/pkg $PACKAGE_DIR/basesystem/src $PACKAGE_DIR/basesystem/basesystem-$VERSION-*
-	rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
+	sudo rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
+	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/kernel/frontend-$VERSION-*
+}
+
+build_frontend ()
+{
+	cp -r $WORKDIR/frontend $PACKAGE_DIR/frontend/
+	cd $PACKAGE_DIR/frontend && sudo makepkg -f --skipinteg --asroot
+	cp $PACKAGE_DIR/frontend/frontend-$VERSION-* $WORKDIR/boot_$ARCH/core/
 }
 
 make_image ()
@@ -163,6 +171,23 @@ make_image ()
 }
 
 # Main script
+
+# Syntax check
+[ $# != 3 ] && printf "Argument expected: setup.sh 'arch' 'workdir_location' '[all|frontend]'\n" && exit 1
+
 prepare_pulsar
-make_pulsar
-make_image
+
+case $2 in
+	"all")
+		make_pulsar
+		build_frontend
+		make_image
+	;;
+	"frontend"
+		build_frontend
+	;;
+	*)
+		printf "Only the functions 'all' and 'frontend' are implemented"
+	;;
+esac
+exit 0

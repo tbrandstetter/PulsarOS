@@ -1,0 +1,15 @@
+pkgname=frontend
+pkgver=0.7alpha
+pkgrel=1
+pkgdesc="PulsarOS frontend"
+arch=('i686')
+url="pulsaros.com"
+license=('GPL')
+groups=('core')
+
+build() {
+	mkdir -p $pkgdir/pulsarcore
+	cd $startdir
+	sudo cp -r $startdir/frontend $pkgdir/pulsarcore/
+	sudo chown -R root:root $pkgdir/pulsarcore
+}
