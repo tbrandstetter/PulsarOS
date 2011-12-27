@@ -183,7 +183,7 @@ case $2 in
 		build_frontend
 		make_image
 	;;
-	"frontend"
+	"frontend")
 		build_frontend
 	;;
 	*)
