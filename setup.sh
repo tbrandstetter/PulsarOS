@@ -177,7 +177,7 @@ make_image ()
 
 prepare_pulsar
 
-case $2 in
+case $3 in
 	"all")
 		make_pulsar
 		build_frontend
