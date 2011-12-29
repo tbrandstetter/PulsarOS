@@ -9,7 +9,7 @@ PACMAN_SOURCE:=pacman-$(PACMAN_VERSION).tar.gz
 PACMAN_SITE:=ftp://ftp.archlinux.org/other/pacman
 PACMAN_INSTALL_STAGING:=NO
 
-PACMAN_CONF_OPT = 	--sysconfdir=/pulsarroot/configs/pacman \
+PACMAN_CONF_OPT = 	--sysconfdir=/pulsarcore/configs/pacman \
 					--disable-git-version \
 					--without-libiconv-prefix \
 					--without-libintl-prefix \
