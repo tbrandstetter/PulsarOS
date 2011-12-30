@@ -58,6 +58,7 @@ copy_pulsarroot ()
 {
 	echo "Copy installer"
 	# needed for the installer image
+	[ ! -d $TARGET_DIR/pulsarroot ] && mkdir $TARGET_DIR/pulsarroot 
 	cp -r $BASE/../installer/* $TARGET_DIR/pulsarroot
 }
 

@@ -54,8 +54,9 @@ prepare_pulsar ()
 	[ ! -f $WORKDIR/.prepared ] && mkdir -p $BOOT_HOME $MOUNT_CD $MOUNT_PULSAR $WORKDIR/images $GCC_DIR
 	[ -d $WORKDIR/configs ] && rm -rf $WORKDIR/configs
 	[ -d $WORKDIR/pulsarroot ] && rm -rf $WORKDIR/pulsarroot
+	[ -d $WORKDIR/frontend ] && rm -rf $WORKDIR/frontend
 	[ -d $WORKDIR/startupscripts ] && rm -rf $WORKDIR/startupscripts
-	[ -d $WORKDIR/corepackages ] && rm -rf $WORKDIR/corepackages
+	[ -d $WORKDIR/corepackages ] && sudo rm -rf $WORKDIR/corepackages
 	[ -d $WORKDIR/build_$ARCH/output ] && rm -rf $WORKDIR/build_$ARCH/output
 	[ -f $BOOT_HOME/initrd.bz2 ] && rm $BOOT_HOME/initrd*
 	[ -f $BOOT_HOME/bzImage ] && rm $BOOT_HOME/bzImage
@@ -149,13 +150,9 @@ make_pulsar ()
 	cd $PACKAGE_DIR/basesystem && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/basesystem/basesystem-$VERSION-* $WORKDIR/boot_$ARCH/core/
 	
-	# build frontend package
-	build_frontend
-	
 	# cleanup package directories
 	sudo rm -r $PACKAGE_DIR/basesystem/initrd* $PACKAGE_DIR/basesystem/pkg $PACKAGE_DIR/basesystem/src $PACKAGE_DIR/basesystem/basesystem-$VERSION-*
 	sudo rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
-	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/kernel/frontend-$VERSION-*
 }
 
 build_frontend ()
@@ -163,6 +160,7 @@ build_frontend ()
 	cp -r $WORKDIR/frontend $PACKAGE_DIR/frontend/
 	cd $PACKAGE_DIR/frontend && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/frontend/frontend-$VERSION-* $WORKDIR/boot_$ARCH/core/
+	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/kernel/frontend-$VERSION-*
 }
 
 make_image ()

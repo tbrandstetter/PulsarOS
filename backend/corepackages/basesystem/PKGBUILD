@@ -13,7 +13,7 @@ build() {
 	mkdir -p $pkgdir/etc
 	bzip2 -d $startdir/initrd.bz2
 	sudo mount -o loop $startdir/initrd /mnt/
-	sudo rm -r /mnt/pulsarroot/*
+	# sudo rm -r /mnt/pulsarroot/*
 	cd $startdir
 	sudo cp -r $startdir/pulsarroot/* $pkgdir/pulsarcore/
 	#sudo cp $startdir/routes.php $pkgdir/pulsarcore/frontend/www/system/application/config/
