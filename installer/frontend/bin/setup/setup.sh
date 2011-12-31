@@ -174,6 +174,8 @@ install_os()
 	dd if=/dev/zero of=${disk} bs=446 count=1
 	dd if=/usr/share/mbr.bin of=${disk}
 	#=============================
+	# move pacman repository
+	mv /pulsarcore/configs/pacman /tmp
 	# install os to disk
 	mount -t ext2 ${disk}1 /boot
 	mount -t ext4 ${disk}2 /pulsarcore
@@ -189,9 +191,13 @@ install_os()
 	e2label ${disk}2 PULSARROOT
 	e2label ${disk}3 USR
 	#======================================================================================
-	# install system
+	# create necessary directories
 	check_dir "/usr/local/var/pacman"
+	check_dir "/pulsarcore/configs"
+	# move pacman repository to system
+	mv /tmp/pacman /pulsarcore/configs/
 	rm -rf /var/lib/nfs
+	# install system
 	$PACMAN /mnt/core/*.pkg.tar.gz
 	cd $HOME
 	
