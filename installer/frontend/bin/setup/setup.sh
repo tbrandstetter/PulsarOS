@@ -205,6 +205,7 @@ install_os()
 	#======================================================================================
 	# configure network
 	echo $hostname > /pulsarcore/configs/system/hostname
+	echo "127.0.0.1 localhost $hostname" > /pulsarcore/configs/network/hosts
 	if [ "$dhcp" = "n" ]; then
 		echo "auto $nwcard" >> /pulsarcore/configs/network/interfaces_${nwcard}
 		echo "iface $nwcard inet static" >> /pulsarcore/configs/network/interfaces_${nwcard}

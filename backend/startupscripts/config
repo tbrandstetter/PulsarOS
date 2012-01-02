@@ -10,11 +10,7 @@
 # @link			http://www.pulsaros.com
 # @email		admin@pulsaros.com
 # 
-# @file			config
-# @version		0.7alpha
-# @date			07/04/2011
-# 
-# Copyright (c) 2009-2011
+# Copyright (c) 2009-2012
 #
 # ##############################################
  
@@ -59,7 +55,8 @@ echo -n "Replay config to PulsarOS: "
 [ -f $CONFIG_HOME/system/shadow ] && cp -p $CONFIG_HOME/system/shadow /etc/shadow
 [ -f $CONFIG_HOME/system/TZ ] && cp -p $CONFIG_HOME/system/TZ /etc/TZ
 [ -f $CONFIG_HOME/network/resolv.conf ] && cp -p $CONFIG_HOME/network/resolv.conf /etc/resolv.conf
-[ -f $CONFIG_HOME/network/defaultrouter ] && cp -p $CONFIG_HOME/network/resolv.conf /etc/defaultrouter
+[ -f $CONFIG_HOME/network/defaultrouter ] && cp -p $CONFIG_HOME/network/defaultrouter /etc/defaultrouter
+[ -f $CONFIG_HOME/network/hosts ] && cp -p $CONFIG_HOME/network/hosts /etc/hosts
 
 echo "OK"
 
