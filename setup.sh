@@ -56,7 +56,6 @@ prepare_pulsar ()
 	[ -d $WORKDIR/pulsarroot ] && rm -rf $WORKDIR/pulsarroot
 	[ -d $WORKDIR/frontend ] && rm -rf $WORKDIR/frontend
 	[ -d $WORKDIR/startupscripts ] && rm -rf $WORKDIR/startupscripts
-	[ -d $WORKDIR/corepackages ] && sudo rm -rf $WORKDIR/corepackages
 	[ -d $WORKDIR/build_$ARCH/output ] && rm -rf $WORKDIR/build_$ARCH/output
 	[ -f $BOOT_HOME/initrd.bz2 ] && rm $BOOT_HOME/initrd*
 	[ -f $BOOT_HOME/bzImage ] && rm $BOOT_HOME/bzImage
@@ -85,7 +84,8 @@ stage_pulsar ()
 	cp -r $BASE/frontend/pulsarroot/frontend $WORKDIR/
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
-	cp -r $BASE/backend/corepackages $WORKDIR/
+	# necessary to track release changes in corepackages (only for internal development) 
+	[! -d $WORKDIR/corepackages $WORKDIR/ ] && cp -r $BASE/backend/corepackages $WORKDIR/
 	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
 }
 
@@ -137,16 +137,28 @@ make_pulsar ()
 	
 	# build gcc package
 	cp $PACKAGE_DIR/gcc/PKGBUILD $GCC_DIR/
+	PKGVERSION=`cat $PACKAGE_DIR/gcc/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
+	NEWPKGVERSION=$(($PKGVERSION+1))
+	cat $PACKAGE_DIR/gcc/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
+	mv PKGBUILD_TMP $PACKAGE_DIR/gcc/PKGBUILD
 	cd $GCC_DIR && makepkg -f --skipinteg
 	
 	# build kernel package
 	cp $WORKDIR/build_$ARCH/output/images/bzImage $PACKAGE_DIR/kernel/
+	PKGVERSION=`cat $PACKAGE_DIR/kernel/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
+	NEWPKGVERSION=$(($PKGVERSION+1))
+	cat $PACKAGE_DIR/kernel/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
+	mv PKGBUILD_TMP $PACKAGE_DIR/kernel/PKGBUILD
 	cd $PACKAGE_DIR/kernel && makepkg -f --skipinteg
 	cp $PACKAGE_DIR/kernel/kernel-$VERSION-* $WORKDIR/boot_$ARCH/core/
 	
 	# build basesystem package
 	cp $WORKDIR/build_$ARCH/output/images/rootfs.ext2.bz2 $PACKAGE_DIR/basesystem/initrd.bz2
 	cp -r $WORKDIR/pulsarroot $PACKAGE_DIR/basesystem/
+	PKGVERSION=`cat $PACKAGE_DIR/basesystem/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
+	NEWPKGVERSION=$(($PKGVERSION+1))
+	cat $PACKAGE_DIR/basesystem/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
+	mv PKGBUILD_TMP $PACKAGE_DIR/basesystem/PKGBUILD
 	cd $PACKAGE_DIR/basesystem && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/basesystem/basesystem-$VERSION-* $WORKDIR/boot_$ARCH/core/
 	
@@ -158,9 +170,13 @@ make_pulsar ()
 build_frontend ()
 {
 	cp -r $WORKDIR/frontend $PACKAGE_DIR/frontend/
+	PKGVERSION=`cat $PACKAGE_DIR/frontend/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
+	NEWPKGVERSION=$(($PKGVERSION+1))
+	cat $PACKAGE_DIR/frontend/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
+	mv PKGBUILD_TMP $PACKAGE_DIR/frontend/PKGBUILD
 	cd $PACKAGE_DIR/frontend && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/frontend/frontend-$VERSION-* $WORKDIR/boot_$ARCH/core/
-	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/kernel/frontend-$VERSION-*
+	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/frontend/frontend-$VERSION-*
 }
 
 make_image ()
