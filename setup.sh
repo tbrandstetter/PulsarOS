@@ -85,7 +85,7 @@ stage_pulsar ()
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
 	# necessary to track release changes in corepackages (only for internal development) 
-	[! -d $WORKDIR/corepackages $WORKDIR/ ] && cp -r $BASE/backend/corepackages $WORKDIR/
+	[ ! -d $WORKDIR/corepackages ] && cp -r $BASE/backend/corepackages $WORKDIR/
 	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
 }
 
