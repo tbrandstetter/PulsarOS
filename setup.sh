@@ -115,6 +115,7 @@ make_pulsar ()
 		echo 'source "package/sshpass/Config.in"' >> $WORKDIR/build_$ARCH/package/Config.in
 		echo 'source "package/msmtp/Config.in"' >> $WORKDIR/build_$ARCH/package/Config.in
 		echo 'source "package/gnutls/Config.in"' >> $WORKDIR/build_$ARCH/package/Config.in
+		echo 'source "package/wget_ssl/Config.in"' >> $WORKDIR/build_$ARCH/package/Config.in
 		echo 'endmenu' >> $WORKDIR/build_$ARCH/package/Config.in
 	fi
 	
