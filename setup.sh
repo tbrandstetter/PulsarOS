@@ -140,7 +140,7 @@ make_pulsar ()
 	cp $WORKDIR/build_$ARCH/output/build/libgpg-error-*/src/gpg-error.h $GCC_DIR/local/include/
 	
 	# copy needed gnutls headers (for development reasons) to gcc package
-	cp $WORKDIR/build_$ARCH/output/build/gnutls-*/lib/includes/gnutls $GCC_DIR/local/include/
+	cp -r $WORKDIR/build_$ARCH/output/build/gnutls-*/lib/includes/gnutls $GCC_DIR/local/include/
 	rm $GCC_DIR/local/include/gnutls/gnutls.h.in
 	
 	# build gcc package
