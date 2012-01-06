@@ -136,6 +136,10 @@ make_pulsar ()
 	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt-module.h $GCC_DIR/local/include/
 	cp $WORKDIR/build_$ARCH/output/build/libgpg-error-*/src/gpg-error.h $GCC_DIR/local/include/
 	
+	# copy needed gnutls headers (for development reasons) to gcc package
+	cp $WORKDIR/build_$ARCH/output/build/gnutls-*/lib/includes/gnutls $GCC_DIR/local/include/
+	rm $GCC_DIR/local/include/gnutls/gnutls.h.in
+	
 	# build gcc package
 	cp $PACKAGE_DIR/gcc/PKGBUILD $GCC_DIR/
 	PKGVERSION=`cat $PACKAGE_DIR/gcc/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
