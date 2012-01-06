@@ -24,7 +24,7 @@ SDKGCC_CONF_OPT = --build=x86_64-unknown-linux-gnu \
 		--disable-decimal-float \
 		--with-arch=i686 \
 		--with-tune=i686 \
-		--with-pkgversion="PulsarOS SDK 0.6alpha" \
+		--with-pkgversion="PulsarOS SDK 0.7alpha" \
 		--prefix=/usr/local \
 		--exec-prefix=/usr/local
 
