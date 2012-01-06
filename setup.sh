@@ -59,6 +59,8 @@ prepare_pulsar ()
 	[ -d $WORKDIR/build_$ARCH/output ] && rm -rf $WORKDIR/build_$ARCH/output
 	[ -f $BOOT_HOME/initrd.bz2 ] && rm $BOOT_HOME/initrd*
 	[ -f $BOOT_HOME/bzImage ] && rm $BOOT_HOME/bzImage
+	[ -d $WORKDIR/core ] && rm -rf $WORKDIR/core
+	[ -d $WORKDIR/sdk ] && rm -rf $WORKDIR/sdk
 	if [ -d $WORKDIR/boot_$ARCH/core ]; then
 		rm  $WORKDIR/boot_$ARCH/core/*
 	else
@@ -128,8 +130,9 @@ make_pulsar ()
 	
 		
 	# move base packages to BOOT
-	cd $WORKDIR/boot_$ARCH/core/ && wget -r -l 1 -nd --accept pkg.tar.gz http://repo.pulsaros.com/core
+	cd $WORKDIR/core/ && wget -r -l 1 -nd --accept pkg.tar.gz http://repo.pulsaros.com/core
 	rm robots.txt
+	cp $WORKDIR/core/* $WORKDIR/boot_$ARCH/core
 	
 	# copy needed gpg headers (for development reasons) to gcc package
 	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt.h $GCC_DIR/local/include/
@@ -147,6 +150,7 @@ make_pulsar ()
 	cat $PACKAGE_DIR/gcc/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
 	mv PKGBUILD_TMP $PACKAGE_DIR/gcc/PKGBUILD
 	cd $GCC_DIR && makepkg -f --skipinteg
+	cp $PACKAGE_DIR/gcc/gcc-$VERSION-* $WORKDIR/sdk
 	
 	# build kernel package
 	cp $WORKDIR/build_$ARCH/output/images/bzImage $PACKAGE_DIR/kernel/
@@ -156,6 +160,7 @@ make_pulsar ()
 	mv PKGBUILD_TMP $PACKAGE_DIR/kernel/PKGBUILD
 	cd $PACKAGE_DIR/kernel && makepkg -f --skipinteg
 	cp $PACKAGE_DIR/kernel/kernel-$VERSION-* $WORKDIR/boot_$ARCH/core/
+	cp $PACKAGE_DIR/kernel/kernel-$VERSION-* $WORKDIR/core/
 	
 	# build basesystem package
 	cp $WORKDIR/build_$ARCH/output/images/rootfs.ext2.bz2 $PACKAGE_DIR/basesystem/initrd.bz2
@@ -166,10 +171,12 @@ make_pulsar ()
 	mv PKGBUILD_TMP $PACKAGE_DIR/basesystem/PKGBUILD
 	cd $PACKAGE_DIR/basesystem && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/basesystem/basesystem-$VERSION-* $WORKDIR/boot_$ARCH/core/
+	cp $PACKAGE_DIR/basesystem/basesystem-$VERSION-* $WORKDIR/core/
 	
 	# cleanup package directories
 	sudo rm -r $PACKAGE_DIR/basesystem/initrd* $PACKAGE_DIR/basesystem/pkg $PACKAGE_DIR/basesystem/src $PACKAGE_DIR/basesystem/basesystem-$VERSION-*
 	sudo rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
+	sudo rm -r $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/gcc/src $PACKAGE_DIR/gcc/gcc-$VERSION-*
 }
 
 build_frontend ()
