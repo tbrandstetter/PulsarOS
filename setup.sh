@@ -188,6 +188,7 @@ build_frontend ()
 	mv PKGBUILD_TMP $PACKAGE_DIR/frontend/PKGBUILD
 	cd $PACKAGE_DIR/frontend && sudo makepkg -f --skipinteg --asroot
 	cp $PACKAGE_DIR/frontend/frontend-$VERSION-* $WORKDIR/boot_$ARCH/core/
+	cp $PACKAGE_DIR/frontend/frontend-$VERSION-* $WORKDIR/core
 	sudo rm -r $PACKAGE_DIR/frontend/frontend $PACKAGE_DIR/frontend/pkg $PACKAGE_DIR/frontend/src $PACKAGE_DIR/frontend/frontend-$VERSION-*
 }
 
