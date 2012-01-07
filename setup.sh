@@ -86,6 +86,7 @@ stage_pulsar ()
 	cp -r $BASE/frontend/pulsarroot/frontend $WORKDIR/
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
+	mkdir $WORKDIR/core && mkdir $WORKDIR/sdk
 	# necessary to track release changes in corepackages (only for internal development) 
 	[ ! -d $WORKDIR/corepackages ] && cp -r $BASE/backend/corepackages $WORKDIR/
 	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/build_$ARCH/.config
