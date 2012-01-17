@@ -131,7 +131,9 @@ make_pulsar ()
 	
 		
 	# move base packages to BOOT
-	cd $WORKDIR/core/ && wget -r -l 1 -nd --accept pkg.tar.gz http://repo.pulsaros.com/core
+	cd $WORKDIR/core/ && wget -r -l 1 -nd --accept pkg.tar.gz http://repo.pulsaros.com/core_dev
+	# we use the new build versions
+	rm $WORKDIR/core/kernel* && rm $WORKDIR/core/basesystem* rm $WORKDIR/core/frontend*
 	rm robots.txt
 	cp $WORKDIR/core/* $WORKDIR/boot_$ARCH/core
 	
