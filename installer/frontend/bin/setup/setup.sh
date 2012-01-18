@@ -228,19 +228,6 @@ install_os()
 	# cp dropbear keys to system
 	cp -rp /pulsarroot/configs/dropbear /pulsarcore/configs/
 	#======================================================================================
-	# remove old frontend from bootimage
-	mkdir /image
-	cp /boot/boot/extlinux/initrd.bz2 /usr/local/
-	bzip2 -d /usr/local/initrd.bz2
-	mount -o loop /usr/local/initrd /image
-	cp /pulsarcore/configs/system/fstab /image/etc/fstab
-	rm -r /image/pulsarroot
-	mkdir /image/pulsarcore
-	cd /image && ln -s pulsarcore pulsarroot
-	cd / && umount /image
-	bzip2 -9 /usr/local/initrd
-	cp /usr/local/initrd.bz2 /boot/boot/extlinux/
-	rm /usr/local/initrd.bz2 && rm -r /image
 	# finish
 	sync
 	umount /boot
