@@ -138,21 +138,20 @@ make_pulsar ()
 	cp $WORKDIR/core/* $WORKDIR/boot_$ARCH/core
 	
 	# copy needed gpg headers (for development reasons) to gcc package
-	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt.h $GCC_DIR/local/include/
-	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt-module.h $GCC_DIR/local/include/
-	cp $WORKDIR/build_$ARCH/output/build/libgpg-error-*/src/gpg-error.h $GCC_DIR/local/include/
+	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt.h $PACKAGE_DIR/gcc/local/include/
+	cp $WORKDIR/build_$ARCH/output/build/libgcrypt-*/src/gcrypt-module.h $PACKAGE_DIR/gcc/local/include/
+	cp $WORKDIR/build_$ARCH/output/build/libgpg-error-*/src/gpg-error.h $PACKAGE_DIR/gcc/local/include/
 	
 	# copy needed gnutls headers (for development reasons) to gcc package
-	cp -r $WORKDIR/build_$ARCH/output/build/gnutls-*/lib/includes/gnutls $GCC_DIR/local/include/
-	rm $GCC_DIR/local/include/gnutls/gnutls.h.in
+	cp -r $WORKDIR/build_$ARCH/output/build/gnutls-*/lib/includes/gnutls $PACKAGE_DIR/gcc/local/include/
+	rm $PACKAGE_DIR/gcc/local/include/gnutls/gnutls.h.in
 	
 	# build gcc package
-	cp $PACKAGE_DIR/gcc/PKGBUILD $GCC_DIR/
 	PKGVERSION=`cat $PACKAGE_DIR/gcc/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
 	NEWPKGVERSION=$(($PKGVERSION+1))
 	cat $PACKAGE_DIR/gcc/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
 	mv PKGBUILD_TMP $PACKAGE_DIR/gcc/PKGBUILD
-	cd $GCC_DIR && makepkg -f --skipinteg
+	cd $PACKAGE_DIR/gcc && makepkg -f --skipinteg
 	cp $PACKAGE_DIR/gcc/gcc-$VERSION-* $WORKDIR/sdk
 	
 	# build kernel package
@@ -179,7 +178,7 @@ make_pulsar ()
 	# cleanup package directories
 	sudo rm -r $PACKAGE_DIR/basesystem/initrd* $PACKAGE_DIR/basesystem/pkg $PACKAGE_DIR/basesystem/src $PACKAGE_DIR/basesystem/basesystem-$VERSION-*
 	sudo rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
-	sudo rm -r $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/gcc/src $PACKAGE_DIR/gcc/gcc-$VERSION-*
+	sudo rm -r $PACKAGE_DIR/gcc/pkg $PACKAGE_DIR/gcc/gcc-$VERSION-*
 }
 
 build_frontend ()

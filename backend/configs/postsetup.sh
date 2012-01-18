@@ -80,7 +80,7 @@ copy_misc ()
 		[ -d $TARGET_DIR/usr/local/include ] && mv -f $TARGET_DIR/usr/include/* $TARGET_DIR/usr/local/include/
 		rm -r $TARGET_DIR/usr/include
 		[ -d $TARGET_DIR/usr/local/lib ] && mv -f $TARGET_DIR/usr/lib/*.a $TARGET_DIR/usr/local/lib/
-		[ -d $BASE/../gcc/local ] && rm -r $BASE/../gcc/local
+		[ -d $BASE/../corepackages/gcc/local ] && rm -r $BASE/../corepackages/gcc/local
 		# fix libdir locations in all *.la files
 		for i in `find $TARGET_DIR/usr/lib -name *.la`; do
 			cat $i | sed "s|$WORKDIR/build_x86/output/host/usr/i686-unknown-linux-uclibc/sysroot/usr/lib|/usr/lib|g" > ${i}_new
@@ -95,7 +95,7 @@ copy_misc ()
 		# fix libstdc++.la libdir location
 		cat $TARGET_DIR/usr/local/lib/libstdc++.la | sed "s|libdir='$WORKDIR/build_x86/output/host/usr/i686-unknown-linux-uclibc/sysroot/usr/lib'|libdir='/usr/local/lib'|g" > $TARGET_DIR/usr/local/lib/libstdc++.la_new
 		mv $TARGET_DIR/usr/local/lib/libstdc++.la_new $TARGET_DIR/usr/local/lib/libstdc++.la
-		mv $TARGET_DIR/usr/local $BASE/../gcc/local
+		mv $TARGET_DIR/usr/local $BASE/../corepackages/gcc/local
 		mkdir $TARGET_DIR/usr/local
 	fi
 }
