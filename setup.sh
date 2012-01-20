@@ -83,7 +83,7 @@ stage_pulsar ()
 	echo "Staging workdir..."
 	cp -r $BASE/backend/configs $WORKDIR/
 	cp -r $BASE/backend/pulsarroot $WORKDIR/
-	cp -r $BASE/frontend/pulsarroot/frontend $WORKDIR/
+	cp -r $BASE/frontend $WORKDIR/
 	cp -r $BASE/installer $WORKDIR/
 	cp -r $BASE/backend/startupscripts $WORKDIR/
 	mkdir $WORKDIR/core && mkdir $WORKDIR/sdk
