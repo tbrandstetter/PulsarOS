@@ -17,7 +17,7 @@ build() {
 	cd /mnt && ln -s pulsarcore pulsarroot
 	cd $startdir
 	sudo cp -r $startdir/pulsarroot/* $pkgdir/pulsarcore/
-	sudo cp $startdir/fstab $pkgdir/pulsarcore/configs/system/fstab
+	sudo cp $startdir/fstab /mnt/etc/fstab
 	sudo chown -R root:root $pkgdir/pulsarcore
 	cd $startdir
 	sudo umount /mnt
