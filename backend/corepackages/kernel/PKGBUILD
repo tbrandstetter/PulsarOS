@@ -9,5 +9,5 @@ groups=('core')
 
 build() {
 	mkdir -p $pkgdir/boot/boot/extlinux
-	cp $startdir/bzImage $pkgdir/boot/boot/extlinux/
+	cp $startdir/*Image $pkgdir/boot/boot/extlinux/
 }

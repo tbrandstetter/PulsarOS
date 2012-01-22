@@ -130,7 +130,7 @@ make_pulsar ()
 	cd $WORKDIR/$ARCH/build && make
 	
 	# copy kernel and basesystem to $BOOT_HOME
-	if [ $ARCH == "arm" ]; then
+	if [ $ARCH = "arm" ]; then
 		cp $WORKDIR/$ARCH/build/output/images/zImage $BOOT_HOME/
 	else
 		cp $WORKDIR/$ARCH/build/output/images/bzImage $BOOT_HOME/
