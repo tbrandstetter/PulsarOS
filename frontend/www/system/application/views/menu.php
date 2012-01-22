@@ -15,7 +15,7 @@
 		<li><a href='index.php?users' title='User'>Users & Groups</a></li>
 		<br />
 		<h1>Plugins</h1>
-		<li><a href='#' title='Store'>Store</a></li>
+		<li><a href='index.php?plugins' title='Store'>Store</a></li>
 		<li><a href='#' title='Installed'>Installed</a></li>
 	</ul>
 </div>

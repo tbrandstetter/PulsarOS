@@ -66,7 +66,7 @@ class Plugins extends Controller
 			
 			foreach ($plugins->plugin as $plugin) {
 				$html['plugin'][$i]['name'] = $plugin->name;
-				$html['plugin'][$i]['author'] = $plugin->author;
+				// $html['plugin'][$i]['author'] = $plugin->author;
 				$html['plugin'][$i]['version'] = $plugin->version;
 				$html['plugin'][$i]['logo'] = "$plugin->name.png";
 				

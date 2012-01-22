@@ -34,7 +34,7 @@
 /* Default settings 
 ====================================================== */
 body {font-family: "Droid Sans", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.3em;color:#484848; margin: 0; padding: 0; background:#FFFFFF;}
-
+.fright {float: right};
 .clear {clear: both;}
 
 /* Fonts and text/link formatting
