@@ -35,6 +35,7 @@
  
 # Variables
 VERSION=0.7alpha
+BUILDROOT_VERSION=2011.05
 ARCH=$1
 BASE=`pwd`
 WORKDIR=$2
@@ -74,8 +75,11 @@ stage_pulsar ()
 	echo "Download & prepare buildroot"
 	if [ ! -d $WORKDIR/build_$ARCH ]; then
 		cd $WORKDIR
-		wget http://www.buildroot.net/downloads/buildroot-2011.05.tar.bz2
-		bzip2 -d buildroot-2011.05.tar.bz2 && tar -xf buildroot-2011.05.tar
+		if [ ! -f $WORKDIR/buildroot-$BUILDROOT_VERSION.tar ]; then
+			wget http://www.buildroot.net/downloads/buildroot-$BUILDROOT_VERSION.tar.bz2
+			bzip2 -d buildroot-2011.05.tar.bz2
+		fi
+		tar -xf buildroot-$BUILDROOT_VERSION.tar
 		mv buildroot-2011.05 build_$ARCH
 		touch .prepared
 	fi
