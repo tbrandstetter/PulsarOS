@@ -4,7 +4,7 @@
 #
 #############################################################
 
-EXTLINUX_VERSION:=4.04
+EXTLINUX_VERSION:=4.05
 #EXTLINUX_SOURCE:=syslinux-$(EXTLINUX_VERSION).tar.bz2
 #EXTLINUX_SITE:=http://www.kernel.org/pub/linux/utils/boot/syslinux
 EXTLINUX_SOURCE:=syslinux_$(EXTLINUX_VERSION)+dfsg.orig.tar.gz
