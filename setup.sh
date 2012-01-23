@@ -163,7 +163,11 @@ make_pulsar ()
 	cp $PACKAGE_DIR/gcc/gcc-$VERSION-* $WORKDIR/$ARCH/sdk
 	
 	# build kernel package
-	cp $WORKDIR/$ARCH/build/output/images/bzImage $PACKAGE_DIR/kernel/
+	if [ -f $WORKDIR/$ARCH/build/output/images/zImage ]; then
+		cp $WORKDIR/$ARCH/build/output/images/zImage $PACKAGE_DIR/kernel/
+	else
+		cp $WORKDIR/$ARCH/build/output/images/bzImage $PACKAGE_DIR/kernel/
+	fi
 	PKGVERSION=`cat $PACKAGE_DIR/kernel/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
 	NEWPKGVERSION=$(($PKGVERSION+1))
 	cat $PACKAGE_DIR/kernel/PKGBUILD| sed "s|pkgrel=$PKGVERSION|pkgrel=$NEWPKGVERSION|g" > PKGBUILD_TMP
