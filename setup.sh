@@ -189,7 +189,12 @@ make_pulsar ()
 	
 	# cleanup package directories
 	sudo rm -r $PACKAGE_DIR/basesystem/initrd* $PACKAGE_DIR/basesystem/pkg $PACKAGE_DIR/basesystem/src $PACKAGE_DIR/basesystem/basesystem-$VERSION-*
-	sudo rm -r $PACKAGE_DIR/kernel/bzImage $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
+	if [ -f $PACKAGE_DIR/kernel/zImage ]; then
+		sudo rm -r $PACKAGE_DIR/kernel/zImage
+	else
+		sudo rm -r $PACKAGE_DIR/kernel/bzImage
+	fi
+	sudo rm -r $PACKAGE_DIR/kernel/pkg $PACKAGE_DIR/kernel/src $PACKAGE_DIR/kernel/kernel-$VERSION-*
 	sudo rm -r $PACKAGE_DIR/gcc/pkg $PACKAGE_DIR/gcc/gcc-$VERSION-*
 }
 
@@ -209,7 +214,8 @@ build_frontend ()
 make_image ()
 {
 	echo "Make image"
-	cp $BASE/gpl.txt $BASE/backend/configs/isolinux.bin $BASE/backend/configs/isolinux.cfg $BOOT_HOME
+	cp $BASE/gpl.txt $BASE/backend/configs/isolinux.bin $BOOT_HOME
+	cp $BASE/backend/configs/isolinux_$ARCH.cfg $BOOT_HOME/isolinux.cfg
 	cd $WORKDIR
 	sudo genisoimage -r -J -pad -b boot/isolinux/isolinux.bin -c boot/isolinux/boot.cat -no-emul-boot -boot-info-table -boot-load-size 4 -o $WORKDIR/images/pulsaros_$ARCH.iso $ARCH/boot
 }
