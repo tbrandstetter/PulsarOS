@@ -41,13 +41,13 @@ TARGET_DIR=$1
 copy_startupfiles ()
 {
 	echo "Copy startupfiles"
-	cp $BASE/../startupscripts/* $TARGET_DIR/etc/init.d/ && chmod 755 $TARGET_DIR/etc/init.d/*
+	cp $BASE/../../startupscripts/* $TARGET_DIR/etc/init.d/ && chmod 755 $TARGET_DIR/etc/init.d/*
 }
 
 copy_configs ()
 {
 	echo "Copy configs"
-	cp $BASE/../configs/system/* $TARGET_DIR/etc/
+	cp $BASE/../../configs/system/* $TARGET_DIR/etc/
 	[ -f $TARGET_DIR/etc/init.d/S10udev ] && rm $TARGET_DIR/etc/init.d/S10udev
 	[ -f $TARGET_DIR/etc/init.d/S20urandom ] && rm $TARGET_DIR/etc/init.d/S20urandom
 	[ -f $TARGET_DIR/etc/init.d/S40network ] && rm $TARGET_DIR/etc/init.d/S40network
@@ -59,7 +59,7 @@ copy_pulsarroot ()
 	echo "Copy installer"
 	# needed for the installer image
 	[ ! -d $TARGET_DIR/pulsarroot ] && mkdir $TARGET_DIR/pulsarroot 
-	cp -r $BASE/../installer/* $TARGET_DIR/pulsarroot
+	cp -r $BASE/../../installer/* $TARGET_DIR/pulsarroot
 }
 
 copy_misc ()
