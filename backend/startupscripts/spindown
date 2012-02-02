@@ -10,11 +10,7 @@
 # @link			http://www.pulsaros.com
 # @email		admin@pulsaros.com
 # 
-# @file			spindown
-# @version		0.7alpha
-# @date			07/04/2011
-# 
-# Copyright (c) 2009-2011
+# Copyright (c) 2009-2012
 #
 # ##############################################
  
@@ -45,14 +41,14 @@
 # Variables
 #
 # ============================================================
-CONFIG_HOME=/pulsarroot/configs/system/spindown.conf
+SPINDOWN_CONFIG=/pulsarroot/configs/system/spindown.conf
 
-if [ -f $CONFIG_HOME ]; then
-	CONFIG=`cat $CONFIG_HOME/spindown.conf`
+if [ -f $SPINDOWN_CONFIG ]; then
+	CONFIG=`cat $SPINDOWN_CONFIG`
 	for i in `cat /proc/mdstat |grep active| awk '{ print $1}'`; do
 		for x in `mdadm --detail /dev/$i|grep dev|grep -v md0|awk '{ print $7 }'`; do
 			logger "Setting harddisk spindown to $CONFIG on disk $x"
-			hdparm -S$CONFIG $x
+			hdparm -S $CONFIG $x
 		done
 	done
 fi
