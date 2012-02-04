@@ -22,9 +22,9 @@ SDKGCC_CONF_OPT = --build=x86_64-unknown-linux-gnu \
 		--disable-nls \
 		--enable-threads \
 		--disable-decimal-float \
-		--with-arch=i686 \
-		--with-tune=i686 \
-		--with-pkgversion="PulsarOS SDK 0.7alpha" \
+		$(GCC_WITH_ARCH) \
+		$(GCC_WITH_TUNE) \
+		--with-pkgversion="PulsarOS SDK" \
 		--prefix=/usr/local \
 		--exec-prefix=/usr/local
 
