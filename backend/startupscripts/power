@@ -41,36 +41,37 @@
 # Variables
 #
 # ============================================================
-export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
 log=/var/log/power.log
 POWER_CONFIG="/pulsarroot/configs/system/power.conf"
 POWER_HOSTS="/pulsarroot/configs/system/power_hosts.conf"
 
 while :;do
+	power=0
 	mode=`cat  $POWER_CONFIG | awk '{ print $1 }'`
 	timeout=`cat $POWER_CONFIG | awk '{ print $2 }'`
 	if [ $timeout != "0" ]; then
 		sleep $timeout
 		for i in `cat $POWER_HOSTS`; do
-                #if hosts are available do nothing
-                if ping -c3 ${i}; then
-                        # do nothing
-                else
-                	echo "Suspend to Ram ..." >> $log
-					echo " " >> $log
-					case $mode in
-						'poweroff')
-							poweroff
-							;;
-						'standby')
-							echo -n standby > /sys/pm/state
-							;;
-						*)
-							echo "wrong mode" >> $log
-							;;
-					esac
-				fi
-        done
+			#if hosts are available do nothing
+			if ping -c3 ${i}; then
+				power=`expr $power + 1`
+			fi
+		done
+		if [ $power = 0 ]; then
+			echo "Suspend to Ram ..." >> $log
+			echo " " >> $log
+			case $mode in
+				'poweroff')
+					poweroff
+					;;
+				'standby')
+					echo -n standby > /sys/pm/state
+					;;
+				*)
+					echo "wrong mode" >> $log
+					;;
+			esac
+		fi
 	else
 		sleep 120
 	fi
