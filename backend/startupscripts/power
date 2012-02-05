@@ -10,11 +10,7 @@
 # @link			http://www.pulsaros.com
 # @email		admin@pulsaros.com
 # 
-# @file			power
-# @version		0.7alpha
-# @date			07/04/2011
-# 
-# Copyright (c) 2009-2011
+# Copyright (c) 2009-2012
 #
 # ##############################################
  
@@ -47,29 +43,34 @@
 # ============================================================
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
 log=/var/log/power.log
+POWER_CONFIG="/pulsarroot/configs/system/power.conf"
+POWER_HOSTS="/pulsarroot/configs/system/power_hosts.conf"
 
 while :;do
-	mode=`cat /pulsarroot/configs/system/power.conf | awk '{ print $1 }'`
-	timeout=`cat /pulsarroot/configs/system/power.conf | awk '{ print $2 }'`
+	mode=`cat  $POWER_CONFIG | awk '{ print $1 }'`
+	timeout=`cat $POWER_CONFIG | awk '{ print $2 }'`
 	if [ $timeout != "0" ]; then
 		sleep $timeout
-		smbstatus=`/usr/local/bin/smbstatus --processes|tail +5|wc -l`
-		sshfsstatus=`netstat -an|grep ":22"|grep -c ESTABLISHED`
-		if [ $smbstatus == "0" ] && [ $sshfsstatus == "0" ]; then
-			echo "Suspend to Ram ..." >> $log
-			echo " " >> $log
-			case $mode in
-				'poweroff')
-					poweroff
-					;;
-				'standby')
-					echo -n standby > /sys/pm/state
-					;;
-				*)
-					echo "wrong mode" >> $log
-					;;
-			esac
-		fi
+		for i in `cat $POWER_HOSTS`; do
+                #if hosts are available do nothing
+                if ping -c3 ${i}; then
+                        # do nothing
+                else
+                	echo "Suspend to Ram ..." >> $log
+					echo " " >> $log
+					case $mode in
+						'poweroff')
+							poweroff
+							;;
+						'standby')
+							echo -n standby > /sys/pm/state
+							;;
+						*)
+							echo "wrong mode" >> $log
+							;;
+					esac
+				fi
+        done
 	else
 		sleep 120
 	fi
