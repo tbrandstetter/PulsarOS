@@ -53,7 +53,7 @@ while :;do
 		sleep $timeout
 		for i in `cat $POWER_HOSTS`; do
 			#if hosts are available do nothing
-			if ping -c3 ${i}; then
+			if arping -c3 ${i}; then
 				power=`expr $power + 1`
 			fi
 		done
