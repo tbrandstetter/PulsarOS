@@ -1,5 +1,0 @@
-config BR2_PACKAGE_GNUTLS
-	bool "gnutls"
-	help
-	  The GNU Transport Layer Security Library.
-	  http://ftp.gnu.org/gnu/gnutls

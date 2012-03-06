@@ -120,9 +120,6 @@ make_pulsar ()
 		echo 'source "package/sdkmpfr/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
 		echo 'source "package/sdkuclibc/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
 		echo 'source "package/sshpass/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
-		echo 'source "package/msmtp/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
-		echo 'source "package/gnutls/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
-		echo 'source "package/wget_ssl/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
 		echo 'endmenu' >> $WORKDIR/$ARCH/build/package/Config.in
 	fi
 	
