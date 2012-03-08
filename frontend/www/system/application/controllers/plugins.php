@@ -43,6 +43,7 @@ class Plugins extends Controller
 		$params = array();
 						
 		// Initialize needed libraries
+		$this->load->library('plugin');
 		$this->load->library('parser');
 		$this->load->library('core', $params);
 		
@@ -71,17 +72,57 @@ class Plugins extends Controller
 				$html['plugin'][$i]['logo'] = "$plugin->name.png";
 				
 				// goes to library function Plugin.php
-				if (exec('pacman -Q '. $plugin->name .'|wc -l') == "1") {
-					$html['plugin'][$i]['status'] = "Installed";
+				if ($this->plugin->chkPlugin(strtolower($plugin->name)) == "1") {
+					$html['plugin'][$i]['status'] = "Uninstall";
 				}
+				// tbd --> Plugin new version
 				else {
-					$html['plugin'][$i]['status'] = '<a href="index.php/plugins/'. $plugin->name .'">Install</a>';
+					$html['plugin'][$i]['status'] = 'Install';
 				}
 				$i++;
 			}
 			$this->parser->parse('plugins/index', $html);
 		}
 		$this->load->view('footer');
+	}
+
+	function install()
+	{
+		if ($_POST['install'] == "y") {
+			$pluginname = strtolower($_POST['pluginname']);
+			if ($_POST['status'] == "Install") {
+				$this->plugin->getPlugin($pluginname);		
+			}
+			elseif ($_POST['status'] == "Uninstall") {
+				$this->plugin->remPlugin($pluginname);		
+			}
+		}
+		else {
+			exec('ping -c 4 '. $this->config->item('mirror') .'', $output, $status);
+			if ($status != 0) {
+				$html['update'] = "Network error - Please check your network connection!";
+			}
+			$this->load->view('header');
+			$this->load->view('menu');
+			$this->parser->parse(plugins/error, $html);
+			$this->load->view('footer');
+		}
+	}
+
+	function config($pluginname)
+	{
+		// show configuration settings for plugins. $pluginname comes from codeigniters routing (routes.php)
+		// if no plugin is installed redirect to plugin index
+		$plugin = strtolower($pluginname);
+		if ($this->plugin->chkPlugin($plugin) == "1") {
+			$this->load->view('header');
+			$this->load->view('menu');
+			$this->load->view("plugins/$plugin");
+			$this->load->view('footer');
+		}
+		else {
+			header('Location: index.php?plugins');
+		}
 	}
 }
 ?>

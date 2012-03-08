@@ -49,6 +49,9 @@ $route['share/(:any)'] = "shares/index/$1";
 /* expand configuration */
 $route['storage/grow/(:any)'] = "storage/grow/$1";
 
+/* plugins configuration */
+$route['plugin/(:any)'] = "plugins/config/$1";
+
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
