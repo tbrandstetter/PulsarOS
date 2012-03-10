@@ -1,71 +1,71 @@
 <div id="main">
-	<div id="content">
-		<form id='Form' method='post' action='index.php?settings/chg'>
-			<div class='left'>
+	<form id='Form' method='post' action='index.php?settings/chg'>
+	<table>
+		<tr>
+			<td>
 				<h1>System Settings</h1>
-				<p>
-					<label class='text'>Timeserver</label>
+				<span class='text'>
+					<label>Timeserver</label>
 					<input type='text' name='timeserver' value='{timeserver}' />
-				</p>
-				<p>
-					<label class='text'>Hostname</label>
+				</span>	
+				<span class='text'>	
+					<label>Hostname</label>
 					<input class="validate['required','length[1,15]','alphanum']" type='text' name='hostname' value='{hostname}' />
-				</p>
-				<p>
-					<label class='text'>Timezone</label>
+				</span>
+				<span class='text'>
+					<label>Timezone</label>
 					<select name='timezone'>
 						<option value='UTC-2' {UTC-2}>Central Europe Summer</option>
 						<option value='UTC-1' {UTC-1}>Central Europe Winter</option>
 					</select>
-				</p>
-				<br />
-			</div>
-			<div class='leftnospace'>
+				</span>
+			</td>
+			<td>
 				<h1>Admin</h1>
-				<p>
-					<label class='text'>Password</label>
+				<span class='text'>
+					<label>Password</label>
 					<input class="validate['words[1,1]']" type='password' name='password' value='' />
-				</p>
-				<p>
-					<label class='text'>Confirm</label>
+				</span>
+				<span class='text'>
+					<label>Confirm</label>
 					<input class="validate['confirm[password]']" type='password' name='confirm' value='' />
-				</p>
-				<br /><br /><br />
-			</div>
-			<div class='left'>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<h1>Mail Settings</h1>
 				{mailsettings}
-				<p>
-					<label class='text'>Email</label>
+				<span class='text'>
+					<label>Email</label>
 					<input class="validate['email']" type='text' name='email' value='{email}' />
-				</p>
-				<p>
-					<label class='text'>Smtp</label>
+				</span>
+				<span class='text'>
+					<label>Smtp</label>
 					<input type='text' name='smtp' value='{smtp}' />
-				</p>
-				<p>
-					<label class='text'>Password</label>
+				</span>
+				<span class='text'>
+					<label>Password</label>
 					<input class="validate['words[1,1]']" type='password' name='pass' value='{pass}' />
-				</p>
-				<p>
-					<label class='text'>Confirm</label>
+				</span>
+				<span class='text'>
+					<label>Confirm</label>
 					<input class="validate['confirm[pass]']" type='password' name='passconfirm' value='' />
-				</p>
-				<div>
+				</span>
+				<span>
 					<input {tls} type='checkbox' name='tls' value='y' />
 					<label class='text'>Use TLS?</label>
-				</div>
+				</span>
 				{/mailsettings}
-				<br />
-			</div>
-			<div id='power' class='leftnospace'>
+			</td>
+			<td>
 				<h1>Power Settings</h1>
-				<p>
+				<span>
 					<label class='text'>Harddisk Spindown after</label>
 					<input class='small' type='text' name='spindown' value='{spindown}' />
 					<label class='text-small'>seconds</label>
-				</p>
-				<p>
+				</span>
+				<span>
 					<label class='text-small'>Powersave</label>
 					<select name='powermode'>
 						<option value='none' {none}>None</option>
@@ -75,12 +75,11 @@
 					<label class='text-small'>after</label>
 					<input class='small' type='text' name='timeout' value='{timeout}' />
 					<label class='text-small'>seconds</label>
-				</p>
-			</div>
-			<div class='clear'></div>
-			<input class="validate['submit'] submit" type='submit' onclick="formValidateAjax('','index.php?settings')" value='Save' />
-			<div class='clear'></div>
-			<div id='result'></div>
-		</form>
-	</div>
+				</span>
+			</td>
+		</tr>
+	</table>
+	<button class="validate['submit'] submit" type='submit' onclick="formValidateAjax('','index.php?settings')" value='Save'>Save</button>
+	<div id='result'></div>
+	</form>
 </div>

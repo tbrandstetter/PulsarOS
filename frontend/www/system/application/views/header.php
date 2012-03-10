@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>PulsarOS Frontend</title>
-	<link href="/css/style.css" type="text/css" rel="stylesheet" media="screen" />
+	<link href="/css/pulsaros_gui.css" type="text/css" rel="stylesheet" media="screen" />
 	<link href="/css/formcheck/theme/classic/formcheck.css" type="text/css" rel="stylesheet" media="screen" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-Language" content="en-us" />
@@ -14,9 +14,11 @@
 	<script src="/js/pulsaros.js" type="text/javascript"></script>
 </head>
 <body>
-	<div id='wrapper'>
-		<div id='logo'>
-			<div id='logout' class='right'>
-				<a href='index.php?login/logout'>Logout</a>
-			</div>
+	<div id='header'>
+		<div class='logo'>
+			<img src="../images/logo.png" alt="Logo" />
+		</div>
+		<div class='profile'>
+			<a href='index.php?login/logout'>Logout</a>
+		</div>
 		</div>
