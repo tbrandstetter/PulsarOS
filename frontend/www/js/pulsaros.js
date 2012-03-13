@@ -38,7 +38,7 @@ window.addEvent('domready', function() {
 		slide.hide();
 		item.getElement( '.addform' ).addEvent('click', function(e) {
 			// we only need to stop the event on links
-			if ( item.getElement('.addform').nodeName === "A") {
+			if ( item.getElement('.addform').nodeName === "BUTTON") {
 				e.stop();
 			}
 			slide.toggle();

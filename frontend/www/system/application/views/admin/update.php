@@ -1,14 +1,16 @@
 <div id="main">
-	<div id="content">
-		<h1>Update</h1>
-		<div id='center'>
-			<form id='Form' method='post' action='index.php?admin/update'>
-				<input type='hidden' name='update' value='y' />
-				<div id='result'>
-					<p>{update}</p>
+	<form id='Form' method='post' action='index.php?admin/update'>
+	<table>
+		<tr>
+			<td>
+				<h1>Update</h1>
+				<span>
+					<input type='hidden' name='update' value='y' />
 					<input class="other" type='submit' onclick="formValidateAjax()" value='Update' />
-				</div>
-			</form>
-		</div>	
-	</div>
+				</span>
+			</td>
+		</tr>	
+	</table>
+	<div id='result'><p>{update}</p></div>
+	</form>
 </div>

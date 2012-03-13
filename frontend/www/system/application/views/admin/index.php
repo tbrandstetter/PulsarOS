@@ -29,6 +29,7 @@
 				<h1>Credits</h1>
 				<p><a href='http://pc.de/icons' alt='PC 100 Icon Pack'>PC 100 Icon Pack</a></p>
 				<p><a href='http://' alt='CC Icon Pack'>CC Icon Pack</a></p>
+				<p><a href='http://www.kendoui.com' alt='Metro Theme'>Metro Theme from KendoUI</a></p>
 			</td>
 		</tr>
 	</table>

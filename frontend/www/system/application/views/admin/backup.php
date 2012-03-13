@@ -1,26 +1,26 @@
 <div id="main">
-	<div id="content">
-		<div class='left'>
-			<h1>Backup</h1>
-			<form id='Formdownload' method='post' action='index.php?admin/backup'>
-				<br />
-				<input type='hidden' name='backup' value='y' />
-				<div id='resultdownload'>
-					<input class="other" type='submit' onclick="formValidateAjax('download')" value='Backup' />
-				</div>
-			</form>	
-		</div>
-		<div class='leftnospace'>
-			<h1>Restore</h1>
-			<form id='Form' method='post' action='index.php?admin/restore' enctype='multipart/form-data'>
-				<br />
-				<input type='file' name='file' />
-				<input class="other" type='submit' value='Restore' />
-				<div id='result'>
-					{status}
-				</div>
-			</form>
-		</div>
-		<div class='clear'></div>
-	</div>
+	<table>
+		<tr>
+			<td>
+				<form id='Formdownload' method='post' action='index.php?admin/backup'>
+				<h1>Backup</h1>
+				<span>
+					<input type='hidden' name='backup' value='y' />
+					<button submit" type='submit' onclick="formValidateAjax('download','')" value='Backup' />Backup</button>
+				</span>
+				<div id='resultdownload'></div>
+				</form>
+			</td>
+			<td>
+				<form id='Form' method='post' action='index.php?admin/restore' enctype='multipart/form-data'>
+				<h1>Restore</h1>
+				<span>
+					<input type='file' name='file' />
+					<button submit" type='submit' value='Restore' />Restore</button>
+				</span>
+				<div id='result'>{status}</div>
+				</form>
+			</td>
+		<tr>
+	</table>
 </div>

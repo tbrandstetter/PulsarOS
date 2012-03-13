@@ -1,34 +1,37 @@
 <div id="main">
-	<div id='content'>
 		<div class='formtoggle'>
 			<form id='Form' method='post' action='index.php?storage/cfg'>
-				<h1>Storage<a href='' class='addform'><img src='/images/plus.png' alt='add' /></a></h1>
-				<div class='formcontainer'>
-					<div>
-						<label class='text'>Poolname:</label>
-						<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
-						<div id='validate' class='validate'></div>
+			<h1>Storage</h1>
+			<button class='b-icon addform'>
+				<span class='s-icon add'></span>
+			</button>
+			Add new storage pool
+			<div class='formcontainer'>
+				<span class='text'>
+					<label>Poolname:</label>
+					<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
+					<div id='validate' class='validate'></div>
+				</span>
+				<p><b>Available Disks</b></p>
+				{disklist}
+				<div class='storage'>
+					<input class={validate} type='checkbox' name="{device}" value="{device} {capacity} {id}" />
+					<div class='img'>
+						<img class='hdd' src='/images/hdd.png' />
+						<br />
+						<img class='stat' src='/images/{availability}.png' />
 					</div>
-					<p><b>Available Disks</b></p>
-					{disklist}
-					<div class='storage'>
-						<input class={validate} type='checkbox' name="{device}" value="{device} {capacity} {id}" />
-						<div class='img'>
-							<img class='hdd' src='/images/hdd.png' />
-							<br />
-							<img class='stat' src='/images/{availability}.png' />
-						</div>
-						<div class='desc'>
-							<p><b>{device}</b></p>
-							<p>{capacity}</p>
-						</div>
-					</div>
-					{/disklist}
-					<div class='clear'></div>
-					<div id='result'>
-						<input class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next' />
+					<div class='desc'>
+						<p><b>{device}</b></p>
+						<p>{capacity}</p>
 					</div>
 				</div>
+				{/disklist}
+				<div class='clear'></div>
+				<div id='result'>
+					<input class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next' />
+				</div>
+			</div>
 			</form>
 		</div>
 		

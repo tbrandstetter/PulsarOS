@@ -52,29 +52,29 @@
 					<label>Confirm</label>
 					<input class="validate['confirm[pass]']" type='password' name='passconfirm' value='' />
 				</span>
-				<span>
+				<span class='text'>
+					<label>Use TLS?</label>
 					<input {tls} type='checkbox' name='tls' value='y' />
-					<label class='text'>Use TLS?</label>
 				</span>
 				{/mailsettings}
 			</td>
 			<td>
 				<h1>Power Settings</h1>
-				<span>
-					<label class='text'>Harddisk Spindown after</label>
-					<input class='small' type='text' name='spindown' value='{spindown}' />
-					<label class='text-small'>seconds</label>
+				<span class='smalltext'>
+					<label>Harddisk Spindown after</label>
+					<input type='text' name='spindown' value='{spindown}' />
+					<label>seconds</label>
 				</span>
-				<span>
-					<label class='text-small'>Powersave</label>
+				<span class='smalltext'>
+					<label>Powersave</label>
 					<select name='powermode'>
 						<option value='none' {none}>None</option>
 						<option value='poweroff' {poweroff}>Poweroff</option>
 						<option value='standby' {standby}>Standby</option>
 					</select>
-					<label class='text-small'>after</label>
-					<input class='small' type='text' name='timeout' value='{timeout}' />
-					<label class='text-small'>seconds</label>
+					<label>after</label>
+					<input type='text' name='timeout' value='{timeout}' />
+					<label>seconds</label>
 				</span>
 			</td>
 		</tr>

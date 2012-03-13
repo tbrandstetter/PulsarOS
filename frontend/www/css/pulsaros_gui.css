@@ -67,7 +67,7 @@ button {
     display: inline-block;
     font-family: inherit;
     line-height: 1.9;
-    margin: 0;
+   	margin: 0;
     outline: 0 none;
     padding: 0 7px 1px;
     text-align: center;
@@ -77,14 +77,45 @@ button {
     border-style: solid;
     border-width: 1px;
     font-size: 100%;
+    background-color: #eee;
+}
+
+button.submit {
+   	margin: 50px 0px;
 }
 
 button:hover {
-	background-color: #fff;
+	background-color: #ccc;
 	border-color: #dadada;
 }
 
+/* Icons 
+====================================================== */
+.b-icon {
+	display: inline-block;
+	margin: 0;
+	padding: 0 7px 1px;
+	line-height: 1.9;
+	text-align: center;
+	cursor: pointer;
+	outline: 0;
+	text-decoration: none;
+}
 
+.s-icon {
+	background-image: url('../images/sprite.png');
+	opacity: .8;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-color: transparent no-repeat;
+	line-height: 0;
+	vertical-align: middle;
+}
+
+.add {
+	background-position: -32px -112px;
+}
 
 /* Header
 ====================================================== */
@@ -160,7 +191,7 @@ button:hover {
     border-top-left-radius: 3px;
     bottom: 3px;
     left: 230px;
-    min-width: 300px;
+	width: 800px;
     overflow: hidden;
     position: fixed;
     right: 0;
@@ -171,7 +202,7 @@ button:hover {
     font-size: 22px;
     font-weight: normal;
     line-height: 100%;
-    padding: 14px 0px;
+    padding: 12px 0px;
     text-transform: uppercase;
 }
 
@@ -185,8 +216,14 @@ button:hover {
 
 span.text {
 	width: 250px;
+	clear: both;
 }
 
 span.text input, select {
 	float: right;
+}
+
+span.smalltext input, select {
+	width: 50px;
+	float: none;
 }

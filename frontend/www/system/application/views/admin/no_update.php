@@ -1,8 +1,10 @@
 <div id="main">
-	<div id="content">
-		<h1>Update</h1>
-		<div id='center'>
-			<p>{update}</p>
-		</div>
-	</div>
+	<table>
+		<tr>
+			<td>
+				<h1>Update</h1>
+				<span><p>{update}</p></span>
+			</td>
+		<tr>
+	</table>
 </div>
