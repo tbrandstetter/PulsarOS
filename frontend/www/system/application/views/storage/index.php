@@ -12,21 +12,8 @@
 					<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
 					<div id='validate' class='validate'></div>
 				</span>
-				<p><b>Available Disks</b></p>
-				{disklist}
-				<div class='storage'>
-					<input class={validate} type='checkbox' name="{device}" value="{device} {capacity} {id}" />
-					<div class='img'>
-						<img class='hdd' src='/images/hdd.png' />
-						<br />
-						<img class='stat' src='/images/{availability}.png' />
-					</div>
-					<div class='desc'>
-						<p><b>{device}</b></p>
-						<p>{capacity}</p>
-					</div>
-				</div>
-				{/disklist}
+				<h1>Available Disks</h1>
+				<?php echo $this->table->generate($disklist); ?>
 				<div class='clear'></div>
 				<div id='result'>
 					<input class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next' />

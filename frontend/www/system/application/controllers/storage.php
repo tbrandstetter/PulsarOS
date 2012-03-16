@@ -111,23 +111,23 @@ class storage extends Controller
 		//Show Site
 		$this->load->view('header');
 		$this->load->view('menu');
+		
+		// use table library for the devicelist
+		$this->load->library('table');
+		
 		// check available disks against used disks
 		$disklist = $this->disk->getDisks();
 		$i = 0;
 		if (!empty($disklist)) {
 			foreach ($disklist as $disks) {
 				if ($this->configs->chkSettings('pool', 'device', $disks['device']) == 0) {
+					$capacity = $this->core->convByte($disks);
+					$html['disklist'][$i]['input'] = "<input type='checkbox' name='$disks[device]' value='$disks[device] $capacity $disks[id]'/>";
 					$html['disklist'][$i]['device'] = $disks['device'];
-					$html['disklist'][$i]['capacity'] = $this->core->convByte($disks);
-					$html['disklist'][$i]['id'] = $disks['id'];
+					$html['disklist'][$i]['capacity'] = $capacity;
+					//$html['disklist'][$i]['id'] = $disks['id'];
 					// gives back the state of the disks (ready, failure or new --> used for the images)
 					$html['disklist'][$i]['availability'] = $this->disk->getState($disks);
-					if ($i == 0) {
-						$html['validate'][$i] = "validate['group[1,1]']";
-					}
-					else {
-						$html['validate'][$i] = "validate['group[1]']";
-					}
 					$i++;
 				}
 			}
@@ -136,6 +136,7 @@ class storage extends Controller
 			$this->parser->parse('storage/index_nodisk', $html);
 		}
 		else {
+			$this->table->set_heading('', 'Disk', 'Size', 'Status');
 			$this->parser->parse('storage/index', $html);
 		}
 		$this->load->view('footer');
