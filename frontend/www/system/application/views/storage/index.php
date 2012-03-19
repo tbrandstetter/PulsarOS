@@ -7,17 +7,14 @@
 			</button>
 			Add new storage pool
 			<div class='formcontainer'>
+				<h1>Available Disks</h1>
+				<?php echo $this->table->generate($disklist); ?>
 				<span class='text'>
 					<label>Poolname:</label>
 					<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
 					<div id='validate' class='validate'></div>
 				</span>
-				<h1>Available Disks</h1>
-				<?php echo $this->table->generate($disklist); ?>
-				<div class='clear'></div>
-				<div id='result'>
-					<input class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next' />
-				</div>
+				<button class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next'>Next</button>
 			</div>
 			</form>
 		</div>

@@ -9,7 +9,7 @@
  * @link		http://www.pulsaros.com
  * @email		admin@pulsaros.com
  * 
- * Copyright (c) 2009-2011
+ * Copyright (c) 2009-2012
  */
  
 /**
@@ -56,6 +56,10 @@ table {
 
 tr {
 	vertical-align: baseline;
+}
+
+th {
+	text-align: left;
 }
 
 span {
@@ -219,11 +223,58 @@ span.text {
 	clear: both;
 }
 
-span.text input, select {
-	float: right;
-}
-
-span.smalltext input, select {
+span.smalltext input {
 	width: 50px;
 	float: none;
+}
+
+span.smalltext select {
+	width: 70px;
+	float: none;
+}
+
+span.text input {
+	float: right;
+	width: 150px;
+}
+
+span.text select {
+	float: right;
+	width: 154px;
+}
+
+.formcontainer {
+	background: #eee;
+	margin-top: -15px;
+}
+
+.formcontainer span.text {
+	margin: 15px 0 0 40px;
+}
+
+.formcontainer button {
+	background: #fff;
+	margin: 15px 0 15px 40px;
+}
+
+.formcontainer button:hover {
+	background-color: #ccc;
+	border-color: #dadada;
+}
+
+.formcontainer h1 {
+	margin-left: 40px;
+}
+
+.formcontainer table {
+	margin-left: 40px;
+	background: #fff;
+	width: 91%;
+	padding: 15px 0 15px 15px;
+}
+
+.network {
+	margin-top: 25px;
+	height: 150px;
+	padding: 10px 0 10px 0;
 }

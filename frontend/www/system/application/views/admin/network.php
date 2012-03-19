@@ -27,22 +27,24 @@
 					<input class='addform' type='checkbox' name='{card}_dhcp' value='y' {dhcp} />
 				</span>
 				<div class='formcontainer'>
-					<span class='text'>
-						<label>IP</label>
-						<input class="validate['length[1,15]','alphanum']" type='text' name='{card}_ipaddr' value='{ip}' />
-					</span>
-					<span class='text'>
-						<label>Netmask</label>
-						<input class="validate['length[1,15]','alphanum']" type='text' name='{card}_netmask' value='{netmask}' />
-					</span>
-					<span class='text'>
-						<label>Gateway</label>
-						<input class="validate['length[1,15]','alphanum']" type='text' name="{card}_gateway" value='{gateway}' />
-					</span>
-					<span class='text'>
-						<label>MTU Size</label>
-						<input class="validate['length[1,4]','alphanum']" type='text' name="{card}_mtu" value='{mtu}' />
-					</span>
+					<div class='network'>
+						<span class='text'>
+							<label>IP</label>
+							<input class="validate['length[1,15]','alphanum']" type='text' name='{card}_ipaddr' value='{ip}' />
+						</span>
+						<span class='text'>
+							<label>Netmask</label>
+							<input class="validate['length[1,15]','alphanum']" type='text' name='{card}_netmask' value='{netmask}' />
+						</span>
+						<span class='text'>
+							<label>Gateway</label>
+							<input class="validate['length[1,15]','alphanum']" type='text' name="{card}_gateway" value='{gateway}' />
+						</span>
+						<span class='text'>
+							<label>MTU Size</label>
+							<input class="validate['length[1,4]','alphanum']" type='text' name="{card}_mtu" value='{mtu}' />
+						</span>
+					</div>
 				</div>
 			</td>
 			{/nwcards}
