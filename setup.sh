@@ -143,13 +143,13 @@ make_pulsar ()
 	cp $WORKDIR/$ARCH/core/* $WORKDIR/$ARCH/boot/core
 	
 	# copy needed gpg headers (for development reasons) to gcc package
-	cp $WORKDIR/$ARCH/build/output/build/libgcrypt-*/src/gcrypt.h $PACKAGE_DIR/gcc/local/include/
-	cp $WORKDIR/$ARCH/build/output/build/libgcrypt-*/src/gcrypt-module.h $PACKAGE_DIR/gcc/local/include/
-	cp $WORKDIR/$ARCH/build/output/build/libgpg-error-*/src/gpg-error.h $PACKAGE_DIR/gcc/local/include/
+	#cp $WORKDIR/$ARCH/build/output/build/libgcrypt-*/src/gcrypt.h $PACKAGE_DIR/gcc/local/include/
+	#cp $WORKDIR/$ARCH/build/output/build/libgcrypt-*/src/gcrypt-module.h $PACKAGE_DIR/gcc/local/include/
+	#cp $WORKDIR/$ARCH/build/output/build/libgpg-error-*/src/gpg-error.h $PACKAGE_DIR/gcc/local/include/
 	
 	# copy needed gnutls headers (for development reasons) to gcc package
-	cp -r $WORKDIR/$ARCH/build/output/build/gnutls-*/lib/includes/gnutls $PACKAGE_DIR/gcc/local/include/
-	rm $PACKAGE_DIR/gcc/local/include/gnutls/gnutls.h.in
+	#cp -r $WORKDIR/$ARCH/build/output/build/gnutls-*/lib/includes/gnutls $PACKAGE_DIR/gcc/local/include/
+	#rm $PACKAGE_DIR/gcc/local/include/gnutls/gnutls.h.in
 	
 	# build gcc package
 	PKGVERSION=`cat $PACKAGE_DIR/gcc/PKGBUILD|grep pkgrel|awk -F= '{print $2}'`
