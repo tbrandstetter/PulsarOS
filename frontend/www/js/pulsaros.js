@@ -282,8 +282,11 @@ function slideDiv(div, status) {
 			slide.hide();
 		}
 		el.getElement('.addform').addEvent('click', function(e) {
-			// we only need to stop the event on links
+			// we only need to stop the event on links and inputs
 			if ( el.getElement('.addform').nodeName === "A") {
+				e.stop();
+			}
+			else if ( el.getElement('.addform').nodeName === "INPUT") {
 				e.stop();
 			}
 			slide.toggle();

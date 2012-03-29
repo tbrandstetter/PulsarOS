@@ -1,23 +1,30 @@
 <div id="main">
-	<div class="box">
-<div id='content'>
-	<h1>STORAGE OPTIONS</h1>
-	<div id='storageoptions'>
-		<form id='Form{name}' method='post' action='index.php?storage/add'>
-			{options}
-			<div class='cell'>
+	<form id='Form' method='post' action='index.php?storage/add'>
+	<h1>Storage Options</h1>
+	<table>
+		{options}
+		<tr>
+			<td>
 				<input class="validate['required']" type='radio' name='raidlevel' value='{raidlevel}' />
-				<img src='/images/{raidlevel}.png' alt='{raidlevel}' />
-			</div>
-			{/options}
+			</td>
+			<td>
+				<span class='raidlevel {raidlevel}'>{raidlevel}</span>
+			</td>
+			<td>
+				<p>{raid_info}</p>
+				<p>{raid_plus}</p>
+				<p>{raid_minus}</p>
+			</td>
 			{disks}
 			<input type='hidden' name='name' value='{name}' />
 			<input type='hidden' name='{device}' value='{device} {capacity} {id}' />
 			{/disks}
-			<div id='result{name}'>
-				<input class="validate['submit'] submit" type='submit' onclick="formValidateAjax('{name}','index.php?storage')" value='Create' />
-				<div class='clear'></div>
-			</div>
-		</form>
+		</tr>
+		{/options}
+	</table>
+	<div id='result'>
+		<button class="validate['submit'] submit" type='submit' onclick="formValidateAjax('','index.php?storage')" value='Create'>Create</button>
+		<div class='clear'></div>
 	</div>
+	</form>
 </div>

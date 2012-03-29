@@ -62,6 +62,15 @@ $config['storagedir'] = '/pulsarroot/configs/storage';
 $config['filesystems'] = '/pulsarroot/configs/storage/filesystems';
 $config['pooldir'] = '/storage';
 $config['iscsiconfig'] = '/pulsarroot/configs/iscsi';
+$config['raid0_info'] = 'Your whole diskspace in one big storage';
+$config['raid0_plus'] = ' + It is fast and you have enough storage for all your stuff';
+$config['raid0_minus'] = ' - There is no way back, if one disk fails. Only choose this option for non important data';
+$config['raid1_info'] = 'Your important data is mirrored between two disks';
+$config['raid1_plus'] = ' + Dont bother. If one disk fails you have another one';
+$config['raid1_minus'] = ' - Safety has its price. Half of the storage size is needed for backup';
+$config['raid5_info'] = 'A mixture between safety and storage. It is the way in the middle';
+$config['raid5_plus'] = ' + One disk failure is nothing. The data is shared across all disks';
+$config['raid5_minus'] = ' - It is the slowest method to store your data';
 
 /* Network settings */
 $config['interfaces'] = '/pulsarroot/configs/network/interfaces';

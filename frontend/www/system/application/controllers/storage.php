@@ -227,14 +227,30 @@ class storage extends Controller
 		$diskcount = $i;
 		if ($diskcount == 1) {
 			$html['options'][0]['raidlevel'] = "raid0";
+			$html['options'][0]['raid_info'] = $this->config->item('raid0_info');
+			$html['options'][0]['raid_plus'] = $this->config->item('raid0_plus');
+			$html['options'][0]['raid_minus'] = $this->config->item('raid0_minus');
+			
 		}		   
 		elseif ($diskcount < 3) {
 			$html['options'][0]['raidlevel'] = "raid0";
+			$html['options'][0]['raid_info'] = $this->config->item('raid0_info');
+			$html['options'][0]['raid_plus'] = $this->config->item('raid0_plus');
+			$html['options'][0]['raid_minus'] = $this->config->item('raid0_minus');
 			$html['options'][1]['raidlevel'] = "raid1";
+			$html['options'][1]['raid_info'] = $this->config->item('raid1_info');
+			$html['options'][1]['raid_plus'] = $this->config->item('raid1_plus');
+			$html['options'][1]['raid_minus'] = $this->config->item('raid1_minus');
 		}
 		elseif ($diskcount >= 3) {
 			$html['options'][0]['raidlevel'] = "raid0";
+			$html['options'][0]['raid_minus'] = $this->config->item('raid0_minus');
+			$html['options'][1]['raid_info'] = $this->config->item('raid5_info');
+			$html['options'][1]['raid_plus'] = $this->config->item('raid5_plus');
+			$html['options'][1]['raid_minus'] = $this->config->item('raid5_minus');
 			$html['options'][1]['raidlevel'] = "raid5";
+			$html['options'][0]['raid_info'] = $this->config->item('raid0_info');
+			$html['options'][0]['raid_plus'] = $this->config->item('raid0_plus');
 		}
 		// show site
 		$this->load->view('header');

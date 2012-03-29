@@ -62,6 +62,10 @@ th {
 	text-align: left;
 }
 
+td p {
+	margin: 0;
+}
+
 span {
 	display: block;
 }
@@ -215,6 +219,30 @@ button:hover {
     padding: 5px 0;
 }
 
+/* Buttons
+====================================================== */
+
+.raidlevel {
+	padding: 1px 2px;
+	color: white;
+	height: 30px;
+	width: 70px;
+	font-size: 25px;
+	text-align: center;
+}
+
+.raidlevel.raid5 {
+	background-color: #4A4A4A;
+}
+
+.raidlevel.raid1 {
+	background-color: #1E776D;
+}
+
+.raidlevel.raid0 {
+	background-color: #58D5C7;
+}
+
 /* Forms
 ====================================================== */
 
@@ -241,6 +269,10 @@ span.text input {
 span.text select {
 	float: right;
 	width: 154px;
+}
+
+td.formtoggle div {
+	width: 320px;
 }
 
 .formcontainer {

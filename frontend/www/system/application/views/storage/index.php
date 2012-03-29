@@ -1,23 +1,23 @@
 <div id="main">
-		<div class='formtoggle'>
-			<form id='Form' method='post' action='index.php?storage/cfg'>
-			<h1>Storage</h1>
-			<button class='b-icon addform'>
-				<span class='s-icon add'></span>
-			</button>
-			Add new storage pool
-			<div class='formcontainer'>
-				<h1>Available Disks</h1>
-				<?php echo $this->table->generate($disklist); ?>
-				<span class='text'>
-					<label>Poolname:</label>
-					<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
-					<div id='validate' class='validate'></div>
-				</span>
-				<button class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next'>Next</button>
-			</div>
-			</form>
+	<div class='formtoggle'>
+		<form id='Form' method='post' action='index.php?storage/cfg'>
+		<h1>Storage</h1>
+		<button class='b-icon addform'>
+			<span class='s-icon add'></span>
+		</button>
+		Add new storage pool
+		<div class='formcontainer'>
+			<h1>Available Disks</h1>
+			<?php echo $this->table->generate($disklist); ?>
+			<span class='text'>
+				<label>Poolname:</label>
+				<input onclick="clearContent()" onblur="validateContent(this.value, 'pool')" class="validate['required','words[1,1]','alphanum']" type='text' name='name' value='' />
+				<div id='validate' class='validate'></div>
+			</span>
+			<button class="validate['submit'] submit" type='submit' onclick="formValidate()" value='Next'>Next</button>
 		</div>
+		</form>
+	</div>
 		
 	{pools}
 	<div class='formtoggle'>
