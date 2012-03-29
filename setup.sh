@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # 
 #
@@ -38,7 +38,7 @@ VERSION=0.7alpha
 BUILDROOT_VERSION=2011.05
 ARCH=$1
 BASE=`pwd`
-WORKDIR=$2
+WORKDIR="${2}"
 BOOT_HOME=$WORKDIR/$ARCH/boot/boot/isolinux
 MOUNT_CD=$WORKDIR/mount/cdrom
 MOUNT_PULSAR=$WORKDIR/mount/pulsar
@@ -77,23 +77,23 @@ stage_pulsar ()
 		cd $WORKDIR
 		if [ ! -f $WORKDIR/buildroot-$BUILDROOT_VERSION.tar ]; then
 			wget http://www.buildroot.net/downloads/buildroot-$BUILDROOT_VERSION.tar.bz2
-			bzip2 -d buildroot-2011.05.tar.bz2
+			bzip2 -d buildroot-$BUILDROOT_VERSION.tar.bz2
 		fi
 		tar -xf buildroot-$BUILDROOT_VERSION.tar
-		mv buildroot-2011.05 $ARCH/build
+		mv buildroot-$BUILDROOT_VERSION $ARCH/build
 		touch $ARCH/build/.prepared
 	fi
 	
 	echo "Staging workdir..."
-	cp -r $BASE/backend/configs $WORKDIR/
-	cp -r $BASE/backend/pulsarroot $WORKDIR/
-	cp -r $BASE/frontend $WORKDIR/
-	cp -r $BASE/installer $WORKDIR/
-	cp -r $BASE/backend/startupscripts $WORKDIR/
+	cp -r "${BASE}"/backend/configs $WORKDIR/
+	cp -r "${BASE}"/backend/pulsarroot $WORKDIR/
+	cp -r "${BASE}"/frontend $WORKDIR/
+	cp -r "${BASE}"/installer $WORKDIR/
+	cp -r "${BASE}"/backend/startupscripts $WORKDIR/
 	mkdir $WORKDIR/$ARCH/core && mkdir $WORKDIR/$ARCH/sdk
 	# necessary to track release changes in corepackages (only for internal development) 
-	[ ! -d $PACKAGE_DIR ] && cp -r $BASE/backend/corepackages $WORKDIR/$ARCH/
-	cp $BASE/backend/configs/buildroot_$ARCH.config $WORKDIR/$ARCH/build/.config
+	[ ! -d $PACKAGE_DIR ] && cp -r "${BASE}"/backend/corepackages $WORKDIR/$ARCH/
+	cp "${BASE}"/backend/configs/buildroot_$ARCH.config $WORKDIR/$ARCH/build/.config
 }
 
 make_pulsar ()
@@ -102,10 +102,10 @@ make_pulsar ()
 	cd $WORKDIR
 	
 	# copy external changes to buildroot framework
-	cp $BASE/backend/configs/e2fsprogs.mk $WORKDIR/$ARCH/build/package/e2fsprogs/
+	cp "${BASE}"/backend/configs/e2fsprogs.mk $WORKDIR/$ARCH/build/package/e2fsprogs/
 	
 	# copy all 3rd party packages to buildroot
-	cp -r $BASE/backend/packages/* $WORKDIR/$ARCH/build/package
+	cp -r "${BASE}"/backend/packages/* $WORKDIR/$ARCH/build/package
 	if [ `grep -c PulsarOS $WORKDIR/$ARCH/build/package/Config.in` = 0 ]; then
 		echo 'menu "Additional PulsarOS packages"' >> $WORKDIR/$ARCH/build/package/Config.in
 		echo 'source "package/monit/Config.in"' >> $WORKDIR/$ARCH/build/package/Config.in
@@ -211,8 +211,8 @@ build_frontend ()
 make_image ()
 {
 	echo "Make image"
-	cp $BASE/gpl.txt $BASE/backend/configs/isolinux.bin $BOOT_HOME
-	cp $BASE/backend/configs/isolinux_$ARCH.cfg $BOOT_HOME/isolinux.cfg
+	cp "${BASE}"/gpl.txt "${BASE}"/backend/configs/isolinux.bin $BOOT_HOME
+	cp "${BASE}"/backend/configs/isolinux_$ARCH.cfg $BOOT_HOME/isolinux.cfg
 	cd $WORKDIR
 	sudo genisoimage -r -J -pad -b boot/isolinux/isolinux.bin -c boot/isolinux/boot.cat -no-emul-boot -boot-info-table -boot-load-size 4 -o $WORKDIR/images/pulsaros_$ARCH.iso $ARCH/boot
 }
