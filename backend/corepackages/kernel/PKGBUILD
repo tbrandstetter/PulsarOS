@@ -1,6 +1,6 @@
 pkgname=kernel
 pkgver=0.7alpha
-pkgrel=6
+pkgrel=1
 pkgdesc="PulsarOS kernel image"
 arch=('i686')
 url="pulsaros.com"
@@ -8,10 +8,10 @@ license=('GPL')
 groups=('core')
 
 build() {
-	mkdir -p $pkgdir/boot/boot/extlinux
-	if [ -f $startdir/zImage ]; then
-		cp $startdir/zImage $pkgdir/boot/boot/extlinux/
+	mkdir -p "${pkgdir}"/boot/boot/extlinux
+	if [ -f "${startdir}"/zImage ]; then
+		cp "${startdir}"/zImage "${pkgdir}"/boot/boot/extlinux/
 	else
-		cp $startdir/bzImage $pkgdir/boot/boot/extlinux/
+		cp "${startdir}"/bzImage "${pkgdir}"/boot/boot/extlinux/
 	fi
 }

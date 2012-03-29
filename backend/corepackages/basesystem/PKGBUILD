@@ -1,6 +1,6 @@
 pkgname=basesystem
 pkgver=0.7alpha
-pkgrel=6
+pkgrel=1
 pkgdesc="PulsarOS basesystem"
 arch=('i686')
 url="pulsaros.com"
@@ -8,21 +8,21 @@ license=('GPL')
 groups=('core')
 
 build() {
-	mkdir -p $pkgdir/boot/boot/extlinux
-	mkdir -p $pkgdir/pulsarcore
-	mkdir -p $pkgdir/etc
-	bzip2 -d $startdir/initrd.bz2
-	sudo mount -o loop $startdir/initrd /mnt/
+	mkdir -p "${pkgdir}"/boot/boot/extlinux
+	mkdir -p "${pkgdir}"/pulsarcore
+	mkdir -p "${pkgdir}"/etc
+	bzip2 -d "${startdir}"/initrd.bz2
+	sudo mount -o loop "${startdir}"/initrd /mnt/
 	sudo rm -r /mnt/pulsarroot/*
 	cd /mnt && ln -s pulsarcore pulsarroot
-	cd $startdir
-	sudo cp -r $startdir/pulsarroot/* $pkgdir/pulsarcore/
-	sudo cp $startdir/fstab /mnt/etc/fstab
-	sudo chown -R root:root $pkgdir/pulsarcore
-	cd $startdir
+	cd "${startdir}"
+	sudo cp -r "${startdir}"/pulsarroot/* "${pkgdir}"/pulsarcore/
+	sudo cp "${startdir}"/fstab /mnt/etc/fstab
+	sudo chown -R root:root "${pkgdir}"/pulsarcore
+	cd "${startdir}
 	sudo umount /mnt
-	bzip2 -9 $startdir/initrd
-	cp $startdir/initrd.bz2 $pkgdir/boot/boot/extlinux/
+	bzip2 -9 "${startdir}"/initrd
+	cp "${startdir}"/initrd.bz2 "${pkgdir}"/boot/boot/extlinux/
 	# cleanup
-	rm -r $startdir/pulsarroot
+	rm -r "${startdir}"/pulsarroot
 }

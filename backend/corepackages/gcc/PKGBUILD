@@ -1,6 +1,6 @@
 pkgname=gcc
 pkgver=0.7alpha
-pkgrel=2
+pkgrel=1
 pkgdesc="PulsarOS sdk compiler & headers"
 arch=('i686')
 url="pulsaros.com"
@@ -8,7 +8,7 @@ license=('GPL')
 groups=('sdk')
 
 build() {
-	mkdir -p $pkgdir/usr
-	rm -r $startdir/local/man
-	mv $startdir/local $pkgdir/usr/
+	mkdir -p "${pkgdir}"/usr
+	rm -r "${startdir}"/local/man
+	mv "${startdir}"/local "${pkgdir}"/usr/
 }

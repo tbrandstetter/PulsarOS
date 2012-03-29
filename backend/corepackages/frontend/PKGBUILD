@@ -8,8 +8,8 @@ license=('GPL')
 groups=('core')
 
 build() {
-	mkdir -p $pkgdir/pulsarcore
-	cd $startdir
-	sudo cp -r $startdir/frontend $pkgdir/pulsarcore/
-	sudo chown -R root:root $pkgdir/pulsarcore
+	mkdir -p "${pkgdir}"/pulsarcore
+	cd "${startdir}"
+	sudo cp -r "${startdir}"/frontend "${pkgdir}"/pulsarcore/
+	sudo chown -R root:root "${pkgdir}"/pulsarcore
 }
