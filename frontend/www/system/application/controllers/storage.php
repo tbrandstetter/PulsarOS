@@ -11,7 +11,7 @@
  * @link		http://www.pulsaros.com
  * @email		tb@digitalplayground.at
  * 
- * Copyright (c) 2009-2011
+ * Copyright (c) 2009-2012
  */
  
 /**
@@ -64,6 +64,9 @@ class storage extends Controller
 	
 	function index()
 	{
+		// use table library for the devicelist
+		$this->load->library('table');
+		
 		// shows, deletes or adds storage pools
 		$xml = $this->configs->getSettings('pool');
 		$i = 0;
@@ -78,13 +81,13 @@ class storage extends Controller
 			switch($pool->raidlevel)
 			{
 			case "raid0":
-				$html['pools'][$i]['raidlevel'] = "Raid0";
+				$html['pools'][$i]['raidlevel'] = "raid0";
 				break;
 			case "raid1":
-				$html['pools'][$i]['raidlevel'] = "Raid1";
+				$html['pools'][$i]['raidlevel'] = "raid1";
 				break;
 			case "raid5":
-				$html['pools'][$i]['raidlevel'] = "Raid5";
+				$html['pools'][$i]['raidlevel'] = "raid5";
 				break;
 			}
 			$x = 0;
@@ -111,9 +114,6 @@ class storage extends Controller
 		//Show Site
 		$this->load->view('header');
 		$this->load->view('menu');
-		
-		// use table library for the devicelist
-		$this->load->library('table');
 		
 		// check available disks against used disks
 		$disklist = $this->disk->getDisks();

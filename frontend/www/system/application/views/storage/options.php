@@ -3,14 +3,14 @@
 	<h1>Storage Options</h1>
 	<table>
 		{options}
-		<tr>
+		<tr class='storageoptions'>
 			<td>
 				<input class="validate['required']" type='radio' name='raidlevel' value='{raidlevel}' />
 			</td>
 			<td>
 				<span class='raidlevel {raidlevel}'>{raidlevel}</span>
 			</td>
-			<td>
+			<td class='raiddesc'>
 				<p>{raid_info}</p>
 				<p>{raid_plus}</p>
 				<p>{raid_minus}</p>

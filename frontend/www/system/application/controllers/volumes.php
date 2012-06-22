@@ -65,6 +65,9 @@ class Volumes extends Controller
 	
 	function index()
 	{
+		// use table library for the volumelist
+		$this->load->library('table');
+		
 		// check if storage exist already
 		if ($this->configs->chkSettings('pool', 'name') == 0) {
 			header("Location: index.php?storage");
@@ -83,37 +86,45 @@ class Volumes extends Controller
 			switch($pool->raidlevel)
 			{
 			case "raid0":
-				$html['pools'][$i]['raidlevel'] = "Raid0";
+				$html['pools'][$i]['raidlevel'] = "raid0";
 				break;
 			case "raid1":
-				$html['pools'][$i]['raidlevel'] = "Raid1";
+				$html['pools'][$i]['raidlevel'] = "raid1";
 				break;
 			case "raid5":
-				$html['pools'][$i]['raidlevel'] = "Raid5";
+				$html['pools'][$i]['raidlevel'] = "raid5";
 				break;
 			}
 			$html['pools'][$i]['volumes'] = array();
 			$html['pools'][$i]['iscsi_volumes'] = array();
 			$html['pools'][$i]['homedir_volumes'] = array();
 			$html['pools'][$i]['state'] = "";
+			$this->table->add_row();
 			$x = 0;
 			foreach ($xml->volume as $volume) {
 				if ("$volume->pool" == "$pool->name") {
 					if ($volume->homedir == "y") {
-						$html['pools'][$i]['homedir_volumes'][$x]['volume'] = $volume->name;
-						$html['pools'][$i]['homedir_volumes'][$x]['description'] = $volume->description;
-						$html['pools'][$i]['homedir_volumes'][$x]['share'] = $volume->share;
-						$html['pools'][$i]['homedir_volumes'][$x]['status'] = $volume->status;
+						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
+						$size = $this->core->calcByte($volume->size);
+						$volumesize = "<span>$size</span>";
+						$volumetype = "<span class='volumeinfo type'>HOME</span>";
+						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
+						$volumedescription = "<span class='volumeinfo desc'>$volume->description</span>";
+						$this->table->add_row("$volumename", "$volumedescription", "$volumestatus", "$volumesize");
 						$html['pools'][$i]['homedir_volumes'][$x]['usedsize'] = $this->volume->getVolsize($pool->name, $volume->name);
 						$html['pools'][$i]['homedir_volumes'][$x]['maxsize'] = $volume->size + $html['pools'][$i]['remaining'];
 						$html['pools'][$i]['homedir_volumes'][$x]['volsize'] = $volume->size;
 						$html['pools'][$i]['homedir_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
 					}
 					elseif (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') == 1) {
-						$html['pools'][$i]['volumes'][$x]['volume'] = $volume->name;
-						$html['pools'][$i]['volumes'][$x]['description'] = $volume->description;
-						$html['pools'][$i]['volumes'][$x]['share'] = $volume->share;
-						$html['pools'][$i]['volumes'][$x]['status'] = $volume->status;
+						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
+						$size = $this->core->calcByte($volume->size);
+						$volumesize = "<span>$size</span>";
+						$volumetype = "<span class='volumeinfo type'>SHARE</span>";
+						$volumetype = "<span class='volumeinfo type'>HOME</span>";
+						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
+						$volumedescription = "<span class='volumeinfo desc'>$volume->description</span>";
+						$this->table->add_row("$volumename", "$volumedescription", "$volumestatus", "$volumesize");
 						$html['pools'][$i]['volumes'][$x]['usedsize'] = $this->volume->getVolsize($pool->name, $volume->name);
 						$html['pools'][$i]['volumes'][$x]['maxsize'] = $volume->size + $html['pools'][$i]['remaining'];
 						$html['pools'][$i]['volumes'][$x]['volsize'] = $volume->size;
@@ -121,10 +132,13 @@ class Volumes extends Controller
 						$x++;
 					}
 					elseif ($volume->iscsi == "y") {
-						$html['pools'][$i]['iscsi_volumes'][$x]['volume'] = $volume->name;
-						$html['pools'][$i]['iscsi_volumes'][$x]['description'] = $volume->description;
-						$html['pools'][$i]['iscsi_volumes'][$x]['share'] = $volume->share;
-						$html['pools'][$i]['iscsi_volumes'][$x]['status'] = $volume->status;
+						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
+						$size = $this->core->calcByte($volume->size);
+						$volumesize = "<span>$size</span>";
+						$volumetype = "<span class='volumeinfo type'>ISCSI</span>";
+						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
+						$volumedescription = "<span class='volumeinfo desc'>$volume->description</span>";
+						$this->table->add_row("$volumename", "$volumedescription", "$volumestatus", "$volumesize");
 						$html['pools'][$i]['iscsi_volumes'][$x]['iscsi'] = $volume->iscsi;
 						$html['pools'][$i]['iscsi_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
 					}
@@ -134,8 +148,13 @@ class Volumes extends Controller
 					}
 				}
 			}
+			// Generate tables for volumes
+			$html['pools'][$i]['volumeentry'] = $this->table->generate();
+			$this->table->clear();
+			
 			$i++;
 		}
+		
 		//Show Site
 		$this->load->view('header');
 		$this->load->view('menu');

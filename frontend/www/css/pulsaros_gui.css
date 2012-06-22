@@ -52,6 +52,7 @@ table {
     border-width: 0;
     empty-cells: show;
     width: 100%;
+    border-spacing: 0px;
 }
 
 tr {
@@ -82,8 +83,7 @@ button {
     text-decoration: none;
     color: #777;
     border-radius: 0 0 0 0;
-    border-style: solid;
-    border-width: 1px;
+    border-style: none;
     font-size: 100%;
     background-color: #eee;
 }
@@ -95,6 +95,15 @@ button.submit {
 button:hover {
 	background-color: #ccc;
 	border-color: #dadada;
+}
+
+p.centered {
+	text-align: center;
+	padding-top: 40px;
+}
+
+.result.centered {
+	text-align: center;
 }
 
 /* Icons 
@@ -124,6 +133,36 @@ button:hover {
 .add {
 	background-position: -32px -112px;
 }
+
+.raidlevel {
+	padding: 1px 2px;
+	color: white;
+	height: 30px;
+	width: 70px;
+	font-size: 25px;
+	text-align: center;
+}
+
+.raidlevel-small {
+	padding: 1px 2px;
+	color: white;
+	width: 40px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.raid5 {
+	background-color: #4A4A4A;
+}
+
+.raid1 {
+	background-color: #1E776D;
+}
+
+.raid0 {
+	background-color: #58D5C7;
+}
+
 
 /* Header
 ====================================================== */
@@ -164,7 +203,7 @@ button:hover {
     padding: 10px 0 0;
     position: fixed;
     top: 40px;
-    width: 180px;
+    width: 190px;
 }
 
 #menu dl {
@@ -217,30 +256,6 @@ button:hover {
 #toolbar {
     overflow: hidden;
     padding: 5px 0;
-}
-
-/* Buttons
-====================================================== */
-
-.raidlevel {
-	padding: 1px 2px;
-	color: white;
-	height: 30px;
-	width: 70px;
-	font-size: 25px;
-	text-align: center;
-}
-
-.raidlevel.raid5 {
-	background-color: #4A4A4A;
-}
-
-.raidlevel.raid1 {
-	background-color: #1E776D;
-}
-
-.raidlevel.raid0 {
-	background-color: #58D5C7;
 }
 
 /* Forms
@@ -310,3 +325,65 @@ td.formtoggle div {
 	height: 150px;
 	padding: 10px 0 10px 0;
 }
+
+/* Storage
+====================================================== */
+tr.storageoptions {
+	height: 100px	
+}
+
+td.pooldesc {
+	width: 310px;
+}
+
+td.poolraid {
+	width: 70px;
+}
+
+td.poolsize  {
+	width: 70px;
+}
+
+td.poolstatus {
+	width:200px;
+}
+
+td.raiddesc {
+	vertical-align: top;
+}
+
+/* Volumes
+====================================================== */
+.volumelist {
+	margin: 25px 33px 25px;	
+}
+
+.volumeinfo {
+	padding: 1px 2px;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+}
+
+.desc, 
+.name {
+	color: #333;
+	text-align: left;
+}
+
+.offline {
+	width: 40px;
+	background-color: #A0A0A0;
+}
+
+.online {
+	width: 40px;
+	background-color: #00C000;
+}
+
+.type {
+	width: 48px;
+	background-color: #4A4A4A;
+}
+
+

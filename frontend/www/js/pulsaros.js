@@ -37,8 +37,14 @@ window.addEvent('domready', function() {
 		var slide = new Fx.Slide(item.getElement( '.formcontainer' ), { duration: 500 });
 		slide.hide();
 		item.getElement( '.addform' ).addEvent('click', function(e) {
-			// we only need to stop the event on links
+			// we only need to stop the event on links or buttons
 			if ( item.getElement('.addform').nodeName === "BUTTON") {
+				e.stop();
+			}
+			else if ( item.getElement('.addform').nodeName === "A") {
+				e.stop();
+			}
+			else if ( item.getElement('.addform').nodeName === "INPUT") {
 				e.stop();
 			}
 			slide.toggle();
