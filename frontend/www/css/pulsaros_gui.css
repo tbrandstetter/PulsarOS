@@ -365,10 +365,16 @@ td.raiddesc {
 	text-align: center;
 }
 
-.desc, 
+.desc {
+	color: #333;
+	text-align: left;
+	width: 142px;
+}
+
 .name {
 	color: #333;
 	text-align: left;
+	width:50px;
 }
 
 .offline {
@@ -381,9 +387,9 @@ td.raiddesc {
 	background-color: #00C000;
 }
 
-.type {
-	width: 48px;
-	background-color: #4A4A4A;
+.size {
+	color: #333;
+	width: 30px;
 }
 
 

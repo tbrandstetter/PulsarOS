@@ -106,7 +106,7 @@ class Volumes extends Controller
 					if ($volume->homedir == "y") {
 						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
 						$size = $this->core->calcByte($volume->size);
-						$volumesize = "<span>$size</span>";
+						$volumesize = "<span class='volumeinfo size'>$size</span>";
 						$volumetype = "<span class='volumeinfo type'>HOME</span>";
 						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
 						$volumedescription = "<span class='volumeinfo desc'>$volume->description</span>";
@@ -119,7 +119,7 @@ class Volumes extends Controller
 					elseif (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') >= 1) {
 						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
 						$size = $this->core->calcByte($volume->size);
-						$volumesize = "<span>$size</span>";
+						$volumesize = "<span class='volumeinfo size'>$size</span>";
 						$volumetype = "<span class='volumeinfo type'>SHARE</span>";
 						$volumetype = "<span class='volumeinfo type'>HOME</span>";
 						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
@@ -134,7 +134,7 @@ class Volumes extends Controller
 					elseif ($volume->iscsi == "y") {
 						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
 						$size = $this->core->calcByte($volume->size);
-						$volumesize = "<span>$size</span>";
+						$volumesize = "<span class='volumeinfo size'>$size</span>";
 						$volumetype = "<span class='volumeinfo type'>ISCSI</span>";
 						$volumename = "<span class='volumeinfo name'>$volume->name</span>";
 						$volumedescription = "<span class='volumeinfo desc'>$volume->description</span>";
