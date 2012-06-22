@@ -116,7 +116,7 @@ class Volumes extends Controller
 						$html['pools'][$i]['homedir_volumes'][$x]['volsize'] = $volume->size;
 						$html['pools'][$i]['homedir_volumes'][$x]['size'] = $this->core->calcByte($volume->size);
 					}
-					elseif (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') == 1) {
+					elseif (exec('cat /proc/mounts | grep "/storage/'. $pool->name .'" | grep -c "'. $volume->name .' "') >= 1) {
 						$volumestatus = "<span class='volumeinfo $volume->share'>$volume->share</span>";
 						$size = $this->core->calcByte($volume->size);
 						$volumesize = "<span>$size</span>";
